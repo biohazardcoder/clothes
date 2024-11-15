@@ -70,7 +70,7 @@ export const AddProduct = () => {
   };
 
   return (
-    <Section className="bg-dashboardBg flex  h-screen p-4 pb-10">
+    <Section className="bg-wishlistBg flex  h-screen p-4 pb-10">
       <ToastContainer />
       <form
         onSubmit={handleFormSubmit}

@@ -40,7 +40,7 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <Section className="bg-dashboardBg overflow-y-auto max-h-screen py-4 px-3 md:py-8 md:px-6">
+    <Section className="bg-wishlistBg overflow-y-auto max-h-screen py-4 px-3 md:py-8 md:px-6">
       <ToastContainer />
       <div className="flex flex-col md:flex-row justify-between items-center mb-8 space-y-4 md:space-y-0">
         <Link
@@ -56,7 +56,7 @@ export const Dashboard = () => {
             <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-dashboardBg rounded-full shadow-md"></span>
           </div>
           <div className="text-left">
-            <h2 className="text-lg md:text-xl font-bold text-sidebarBg group-hover:text-accent transition-colors duration-300">
+            <h2 className="text-lg md:text-xl font-bold text-mainText group-hover:text-accent transition-colors duration-300">
               Xush kelibsiz, {data.firstName}
             </h2>
             <p className="text-xs md:text-sm text-gray-500">

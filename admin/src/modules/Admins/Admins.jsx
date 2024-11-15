@@ -56,10 +56,10 @@ export const Admins = () => {
   };
 
   return (
-    <div className="p-4 sm:p-8 bg-green-100 h-screen overflow-y-auto">
+    <div className="p-4 sm:p-8 bg-wishlistBg h-screen overflow-y-auto">
       <ToastContainer />
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-xl sm:text-3xl text-black">
+        <h1 className="text-xl sm:text-3xl text-mainText">
           Adminlar [ {data.length} ]
         </h1>
         <button

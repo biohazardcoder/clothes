@@ -37,7 +37,7 @@ export const CreateAdmin = () => {
   };
   const FormInput = "border border-gray-300 rounded-md p-2 w-full"
   return (
-    <Section className="bg-dashboardBg flex flex-col justify-center items-center h-screen p-4">
+    <Section className="bg-wishlistBg flex flex-col justify-center items-center h-screen p-4">
       <ToastContainer />
       <form
         onSubmit={handleFormSubmit}

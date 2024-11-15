@@ -18,10 +18,6 @@ import { Admins } from "./modules/Admins/Admins";
 import { CreateAdmin } from "./modules/Admins/CreateAdmin";
 import { AddProduct } from "./modules/Products/AddProduct";
 import { Products } from "./modules/Products/Products";
-import { CreatePartner } from "./modules/Partners/CreatePartner";
-import { Partners } from "./modules/Partners/Partners";
-import { EditPartner } from "./modules/Partners/EditPartner";
-import { SelectProduct } from "./modules/Partners/SelectProduct";
 
 function App() {
   const dispatch = useDispatch();
@@ -84,22 +80,6 @@ function App() {
             {
               path: "create-product",
               element: <AddProduct />,
-            },
-            {
-              path: "partners",
-              element: <Partners />,
-            },
-            {
-              path: "edit-partner/:partnerId",
-              element: <EditPartner />,
-            },
-            {
-              path: "create-partner",
-              element: <CreatePartner />,
-            },
-            {
-              path:"select-product/:productId",
-              element: <SelectProduct />,
             },
             {
               path: "*",

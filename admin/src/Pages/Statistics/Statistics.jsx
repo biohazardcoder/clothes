@@ -56,8 +56,8 @@ export function Statistics({ adminsCount, productCount, clientCount }) {
   };
 
   return (
-    <div className="p-8 px-8  min-h-[50%] overflow-y-auto bg-white  rounded-2xl shadow-md ">
-      <h1 className="text-3xl font-semibold mb-6 text-sidebarBg">Statistikalar</h1>
+    <div className="p-8 px-8  min-h-[50%] overflow-y-auto bg-productBg  rounded-2xl shadow-md ">
+      <h1 className="text-3xl font-semibold mb-6 text-mainText">Statistikalar</h1>
       <div className="bg-sidebarBg p-5 md:p-16 flex items-center justify-center rounded-lg h-[450px] text-mainText shadow-lg">
         <Bar data={data} className='text-white' options={options} />
       </div>

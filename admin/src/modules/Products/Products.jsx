@@ -145,10 +145,10 @@ export const Products = () => {
   };
 
   return (
-    <div className="p-8 bg-green-100 w-full h-screen overflow-y-auto">
+    <div className="p-8 bg-wishlistBg w-full h-screen overflow-y-auto">
       <ToastContainer />
       <div className="w-full h-[50px] flex py-4 md:flex-row justify-between items-center mb-4">
-        <h1 className="text-xl text-black">
+        <h1 className="text-xl text-mainText">
           Mahsulotlar: <br />
           <div className="flex flex-col">
             <span className="text-sm">

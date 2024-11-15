@@ -44,7 +44,7 @@ export const UserUpdate = () => {
   const LinkStyle = "text-mainText rounded-lg py-2 px-4 duration-300  font-semibold transition-colors"
 
   return (
-    <Section className="bg-dashboardBg flex flex-col justify-center items-center h-screen p-4">
+    <Section className="bg-wishlistBg flex flex-col justify-center items-center h-screen p-4">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-mainBg p-8 rounded-lg shadow-lg flex flex-col gap-6"

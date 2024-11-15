@@ -8,7 +8,6 @@ import path from 'path';
 
 import AdminRoutes from "./routes/admin.js";
 import ProductRoutes from "./routes/product.js";
-import PartnerRoutes from "./routes/partner.js";
 
 dotenv.config();
 
@@ -50,7 +49,6 @@ app.get("/", (_, res) => res.send("Hello world!"));
 
 app.use("/admin", AdminRoutes);
 app.use("/product", ProductRoutes);
-app.use("/partner", PartnerRoutes);
 
 const startApp = async () => {
   try {
