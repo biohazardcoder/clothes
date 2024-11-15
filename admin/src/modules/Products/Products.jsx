@@ -190,7 +190,7 @@ export const Products = () => {
                 <img
                   src={imageSrc || "https://www.landuse-ca.org/wp-content/uploads/2019/04/no-photo-available.png"}
                   alt={product.title}
-                  className="w-full h-32 object-cover rounded mb-2"
+                  className="w-full h-[350px] object-cover object-top rounded mb-2"
                 />
 
                 <h2 className="text-lg font-bold">{product.title}</h2>
