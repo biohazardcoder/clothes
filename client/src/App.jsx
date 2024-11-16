@@ -1,35 +1,70 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect } from "react";
+import { Home } from "./pages/Home/Home";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RootLayout } from "./layout/RootLayout";
+import { Login } from "./pages/auth/Login/Login";
+import { getUserError, getUserPending, getUserSuccess } from "./toolkit/UserSlicer";
+import { useDispatch } from "react-redux";
+import Axios from "./Axios";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Wishlist from "./pages/Wishlist/Wishlist";
+import { Register } from "./pages/auth/Register/Register";
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch();
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  useEffect(() => {
+    async function getMyData() {
+      try {
+        dispatch(getUserPending());
+
+        const response = await Axios.get("client/me");
+
+        if (response?.data) {
+          dispatch(getUserSuccess(response.data.data));
+        } else {
+          dispatch(getUserError("No user data available"));
+        }
+      } catch (error) {
+        const errorMessage = error?.response?.data || "Unknown error occurred";
+        dispatch(getUserError(errorMessage));
+      }
+    }
+
+    getMyData();
+  }, [dispatch]);
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <RootLayout />,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "/d",
+          element: <Dashboard />,
+        },
+        {
+          path: "/wishlist",
+          element: <Wishlist />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
+        },
+      ],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

@@ -8,6 +8,7 @@ import path from 'path';
 
 import AdminRoutes from "./routes/admin.js";
 import ProductRoutes from "./routes/product.js";
+import ClientRoutes from "./routes/client.js";
 
 dotenv.config();
 
@@ -48,6 +49,7 @@ app.post("/upload", upload.array("photos"), async (req, res) => {
 app.get("/", (_, res) => res.send("Hello world!"));
 
 app.use("/admin", AdminRoutes);
+app.use("/client", ClientRoutes);
 app.use("/product", ProductRoutes);
 
 const startApp = async () => {
