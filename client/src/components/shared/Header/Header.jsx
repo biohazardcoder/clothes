@@ -64,7 +64,7 @@ export const Header = () => {
     window.location.href = "/";
   };
   return (
-    <header className="h-[80px] bg-mainBg fixed w-full left-0 top-0">
+    <header className="h-[80px] z-10 bg-mainBg fixed w-full left-0 top-0">
       <Container className={"h-full flex justify-between items-center"}>
         <Link
           to={"/"}

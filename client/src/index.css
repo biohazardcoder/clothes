@@ -13,6 +13,7 @@
   max-width: 1400px;
   margin: 0 auto;
 }
+
 ::-webkit-scrollbar {
   width: 7px;
 }
@@ -26,11 +27,9 @@
 }
 
 .hero_bg {
-  background: linear-gradient(
-      to left,
+  background: linear-gradient(to left,
       rgba(0, 0, 0, 0.486),
-      rgba(0, 0, 0, 0.759)
-    ),
-    url("https://wallpapers.com/images/hd/fashion-store-display-i5s6es944n29q9sp.jpg");
+      rgba(0, 0, 0, 0.759)),
+    url("./images/home.jpg");
   background-size: cover;
 }

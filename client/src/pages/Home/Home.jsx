@@ -1,26 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "../../components/shared/Container/Container";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "@phosphor-icons/react";
 import Axios from "../../Axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductSuccess } from "../../toolkit/ProductsSlicer";
-import { FaCartPlus, FaShopify } from "react-icons/fa";
+import { FaCartPlus, FaEye, FaShopify } from "react-icons/fa";
 import Advantage from "../Advantage/Advantage";
 import Deal from "../Deal/Deal";
 import Instagram from "../Instagram/Instagram";
 
 export const Home = () => {
+  const [wishlist, setWishlist] = useState([]);
   const userData = useSelector((state) => state.user);
   const { data } = useSelector((state) => state.products);
   const dispatch = useDispatch();
-  console.log(userData.data);
   console.log(data);
+
+  useEffect(() => {
+    const savedProducts = JSON.parse(localStorage.getItem("saved_products")) || [];
+    setWishlist(savedProducts);
+  }, []);
 
   useEffect(() => {
     Axios.get("product")
       .then((response) => {
-        getProductSuccess(response.data.data);
         dispatch(getProductSuccess(response.data.data));
       })
       .catch((error) => {
@@ -28,6 +32,18 @@ export const Home = () => {
       });
   }, [dispatch]);
 
+  const isProductInWishlist = (productId) => wishlist.includes(productId);
+
+  const toggleWishlist = (productId) => {
+    let updatedWishlist = [...wishlist];
+    if (updatedWishlist.includes(productId)) {
+      updatedWishlist = updatedWishlist.filter((id) => id !== productId);
+    } else {
+      updatedWishlist.push(productId);
+    }
+    setWishlist(updatedWishlist);
+    localStorage.setItem("saved_products", JSON.stringify(updatedWishlist));
+  };
 
   return (
     <>
@@ -54,59 +70,42 @@ export const Home = () => {
         </Container>
       </section>
       <section className="py-20 bg-[#1B1D22]" id="watches">
-        <Container >
-          <h1 className="mb-10 text-white text-3xl">New Watches</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Container>
+          <h1 className="mb-10 text-white text-3xl">Our Bestseller</h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {data.map((product, index) => (
               <div key={index} className="text-white bg-[#333] rounded-lg p-4">
-                <figure className="w-full overflow-hidden">
+                <figure className="w-full relative overflow-hidden">
                   <img
-                    className="w-full object-cover object-top h-[500px]"
+                    className="w-full object-cover object-top h-[300px]"
                     src={product.photos[0]}
                     alt={product.title}
                   />
-                </figure>
-                <h3>
-                  <span className="font-semibold font-serif">Title:</span> {product.title}
-                </h3>
-                <h2>
-                  <span className="font-serif">Price:</span> ${product.price}
-                </h2>
-                <h2>
-                  <span className="font-serif">Color:</span> {product.colors}
-                </h2>
-                <h2>
-                  <span className="font-serif">Stock:</span> {product.stock}
-                </h2>
-                <div className="flex items-center gap-4` justify-center mt-2">
                   <button
-                    className="text-[#9A836C] flex items-center gap-2 p-2 rounded-md bg-white transition-colors duration-300 hover:bg-[#9A836C] hover:text-white"
-                    onClick={() => {
-                      let savedProducts = JSON.parse(localStorage.getItem("saved_products"));
-
-                      if (!savedProducts) {
-                        savedProducts = [];
-                      }
-
-                      if (!savedProducts.includes(product.id)) {
-                        savedProducts.push(product.id);
-                        localStorage.setItem("saved_products", JSON.stringify(savedProducts));
-                      }
-                      console.log("Initial savedProducts:", savedProducts);
-                      console.log("Updated savedProducts:", JSON.parse(localStorage.getItem("saved_products")));
-                    }}
+                    className={`absolute top-5 right-5 flex items-center gap-2 p-2 rounded-md transition-colors duration-300 
+                      ${isProductInWishlist(product.id)
+                        ? "bg-[#9A836C] text-white"
+                        : "bg-white text-[#9A836C] "
+                      }`}
+                    onClick={() => toggleWishlist(product.id)}
                   >
                     <FaCartPlus />
-                    Save to Wishlist
                   </button>
-
                   <button
-                    className="text-[#9A836C] flex items-center gap-2 py-2 px-3 rounded-md bg-white transition-colors duration-300 hover:bg-[#9A836C] hover:text-white"
+                    className="text-[#9A836C] absolute top-16 right-5 flex items-center gap-2 p-2 rounded-md bg-white transition-colors duration-300 "
                   >
-                    <FaShopify />
-                    Purchase
+                    <FaEye />
                   </button>
-                </div>
+                </figure>
+                <h3 className="font-semibold font-serif">
+                  {product.title}
+                </h3>
+                <h2 className="font-mono text-sidebarText">
+                  <span className="font-serif font-semibold">Price:</span> {new Intl.NumberFormat('uz-UZ').format(product.price)} so'm
+                </h2>
+                <h2 className="font-mono text-sidebarText">
+                  <span className="font-serif font-semibold">Size:</span> {product.size}
+                </h2>
               </div>
             ))}
           </div>
@@ -115,7 +114,6 @@ export const Home = () => {
           <Advantage />
         </Container>
       </section>
-
     </>
   );
 };
