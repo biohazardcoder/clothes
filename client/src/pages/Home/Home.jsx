@@ -6,6 +6,9 @@ import Axios from "../../Axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductSuccess } from "../../toolkit/ProductsSlicer";
 import { FaCartPlus, FaShopify } from "react-icons/fa";
+import Advantage from "../Advantage/Advantage";
+import Deal from "../Deal/Deal";
+import Instagram from "../Instagram/Instagram";
 
 export const Home = () => {
   const userData = useSelector((state) => state.user);
@@ -32,7 +35,7 @@ export const Home = () => {
         <Container className="grid grid-cols-1 lg:grid-cols-2 h-full items-center gap-12">
           <div className="flex flex-col h-full justify-center items-start gap-10">
             <h1 className="text-white text-6xl font-bold">
-              Discover Luxurious Watches You Will Love.
+              O'zingiz Yoqtirgan Hashamatli Uslubni Kashf Eting.
             </h1>
             <p className="text-[#B1B1B1] font-light">
               What looked like a small patch of purple grass, above five feet
@@ -91,7 +94,6 @@ export const Home = () => {
                       }
                       console.log("Initial savedProducts:", savedProducts);
                       console.log("Updated savedProducts:", JSON.parse(localStorage.getItem("saved_products")));
-
                     }}
                   >
                     <FaCartPlus />
@@ -108,13 +110,12 @@ export const Home = () => {
               </div>
             ))}
           </div>
-
-
+          <Deal />
+          <Instagram />
+          <Advantage />
         </Container>
       </section>
 
-      <section>
-      </section>
     </>
   );
 };

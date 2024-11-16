@@ -13,6 +13,17 @@
   max-width: 1400px;
   margin: 0 auto;
 }
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #6b6b6b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(17, 20, 23);
+}
 
 .hero_bg {
   background: linear-gradient(
@@ -20,6 +31,6 @@
       rgba(0, 0, 0, 0.486),
       rgba(0, 0, 0, 0.759)
     ),
-    url("https://cdn.wallpapersafari.com/83/53/FCluPK.jpg");
+    url("https://wallpapers.com/images/hd/fashion-store-display-i5s6es944n29q9sp.jpg");
   background-size: cover;
 }
