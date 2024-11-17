@@ -7,14 +7,16 @@ import UserReducer from "./Toolkit/UserSlicer.jsx";
 import { Provider } from "react-redux";
 import AdminsReducer from "./Toolkit/AdminsSlicer.jsx";
 import ProductsReducer from "./Toolkit/ProductsSlicer.jsx";
-import PartnerReducer from "./Toolkit/PartnersSlicer.jsx";
+import ClientReducer from "./Toolkit/ClientSlicer.jsx";
+import OrderReducer from "./Toolkit/OrdersSlicer.jsx";
 
 const store = configureStore({
   reducer: {
     user: UserReducer,
     admins: AdminsReducer,
     products: ProductsReducer,
-    partners: PartnerReducer,
+    clients: ClientReducer,
+    orders: OrderReducer
   },
 });
 

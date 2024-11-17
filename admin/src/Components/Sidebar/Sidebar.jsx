@@ -28,6 +28,8 @@ export const Sidebar = () => {
             { path: "/", label: "Shaxsiy panel" },
             { path: "/admins", label: "Adminlar" },
             { path: "/products", label: "Mahsulotlar" },
+            { path: "/clients", label: "Mijozlar" },
+            { path: "/orders", label: "Buyurtmalar" },
           ].map((link) => (
             <li key={link.path}>
               <NavLink

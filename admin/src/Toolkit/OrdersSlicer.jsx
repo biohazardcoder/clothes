@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const PartnerSlicer = createSlice({
-  name: "Partner",
+const OrderSlicer = createSlice({
+  name: "Order",
   initialState: {
     data: [],
     isAuth: false,
@@ -9,22 +9,21 @@ const PartnerSlicer = createSlice({
     isError: "",
   },
   reducers: {
-    getPartnerPending(state) {
+    getOrdersPending(state) {
       state.isPending = true;
       state.isError = "";
     },
-    getPartnerSuccess(state, { payload }) {
+    getOrdersSuccess(state, { payload }) {
       state.isAuth = true;
       state.data = payload;
       state.isPending = false;
     },
-    getPartnerError(state, { payload }) {
+    getOrdersError(state, { payload }) {
       state.isPending = false;
       state.isError = payload;
     },
   },
 });
 
-export const { getPartnerError, getPartnerPending, getPartnerSuccess } =
-  PartnerSlicer.actions;
-export default PartnerSlicer.reducer;
+export const { getOrdersError, getOrdersPending, getOrdersSuccess } = OrderSlicer.actions;
+export default OrderSlicer.reducer;
