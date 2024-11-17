@@ -45,7 +45,7 @@ function App() {
           element: <Home />,
         },
         {
-          path: "/d",
+          path: "/d/:id",
           element: <Dashboard />,
         },
         {

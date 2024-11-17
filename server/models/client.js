@@ -7,6 +7,12 @@ const Client = new mongoose.Schema({
   password: { type: String, required: true },
   address: { type: String, required: true },
   avatar: { type: String },
+  products: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+    },
+  ],
 });
 
 export default mongoose.model("Client", Client);

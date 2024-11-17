@@ -12,6 +12,11 @@ export const Header = () => {
   const navigate = useNavigate();
   const navMenuRef = useRef(null);
   const toggleButtonRef = useRef(null);
+  const { data } = useSelector((state) => state.user);
+  console.log(data);
+
+  const id = data._id
+  console.log(id);
 
   const navData = [
     {
@@ -118,7 +123,7 @@ export const Header = () => {
                 ) : (
                   <div className="flex items-center gap-2">
                     <Link
-                      to="/d"
+                      to={`/d/${id}`}
                       className="text-white flex items-center gap-2"
                     >
                       <FaRegUserCircle size={25} />

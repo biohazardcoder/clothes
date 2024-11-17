@@ -100,10 +100,10 @@ export const Home = () => {
                 <h3 className="font-semibold font-serif">
                   {product.title}
                 </h3>
-                <h2 className="font-mono text-sidebarText">
+                <h2 className="font-mono">
                   <span className="font-serif font-semibold">Price:</span> {new Intl.NumberFormat('uz-UZ').format(product.price)} so'm
                 </h2>
-                <h2 className="font-mono text-sidebarText">
+                <h2 className="font-mono">
                   <span className="font-serif font-semibold">Size:</span> {product.size}
                 </h2>
               </div>
