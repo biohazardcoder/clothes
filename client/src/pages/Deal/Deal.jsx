@@ -3,6 +3,13 @@ import { DealImg } from "../../images/images";
 const Deal = () => {
     return (
         <div className="flex flex-col md:flex-row items-center justify-center   ">
+            <div className=" ">
+                <img
+                    src={DealImg}
+                    alt="Model with hat"
+                    className="rounded-lg m-auto shadow-md h-[300px] "
+                />
+            </div>
             <div className="p-8 bgre md:w-1/2">
                 <h1 className="text-4xl font-bold text-[#fff] mb-4">Deals of the Month</h1>
                 <p className="text-sidebarText mb-6">
@@ -26,13 +33,7 @@ const Deal = () => {
                 </button>
             </div>
 
-            <div className="">
-                <img
-                    src={DealImg}
-                    alt="Model with hat"
-                    className="rounded-lg shadow-md"
-                />
-            </div>
+
         </div >
     );
 };
