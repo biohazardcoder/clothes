@@ -36,12 +36,12 @@ export const Login = () => {
 
     return (
         <>
-            <section className="h-screen flex justify-center items-center bg-wishlistBg">
-                <div className="flex items-center h-3/4 bg-red-200 justify-center">
+            <section className="h-screen flex justify-center  items-center bg-container">
+                <div className="flex items-center h-3/4 bg-white  justify-center">
                     <div className="bg-red-400 h-full ">
                         <img src={LoginImg} alt="Rasm" className="h-full" />
                     </div>
-                    <div className="h-full flex items-center bg-white justify-center">
+                    <div className="h-full flex items-center justify-center">
                         <div className="">
                             <form
                                 className="flex flex-col h-full gap-5 w-full md:w-[500px]  text-black p-10 "
@@ -54,16 +54,15 @@ export const Login = () => {
                                 </div>
                                 <div>
                                     Phone Number:
-                                    <div className="flex h justify-between border border-black rounded-xl   overflow-hidden">
-                                        <button
-                                            type="button"
-                                            className="w-1/6 text-[12px] md:text-lg bg-transparent text-white border-r bg-wishlistBg border-white"
+                                    <div className="flex h justify-between border bg-container border-black rounded-xl   overflow-hidden">
+                                        <h1
+                                            className="w-1/6 flex items-center justify-center text-[12px] md:text-lg bg-transparent text-white border-r  border-white"
                                         >
                                             +998
-                                        </button>
+                                        </h1>
                                         <input
                                             type="text"
-                                            className="p-2 outline-none w-5/6 bg-transparent text-black"
+                                            className="p-2 outline-none w-5/6 bg-white text-black"
                                             placeholder="Телефонный номер"
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
@@ -99,7 +98,7 @@ export const Login = () => {
                                 </p>
                                 <button
                                     type="submit"
-                                    className="bg-hoverBg font-semibold py-3 text-white rounded-xl"
+                                    className="bg-meteor font-semibold py-3 text-white rounded-xl"
                                 >
                                     Login
                                 </button>

@@ -36,7 +36,7 @@ export const Register = () => {
 
 
     return (
-        <section className="h-screen flex justify-center items-center bg-wishlistBg">
+        <section className="h-screen flex justify-center items-center bg-container">
             <div className="flex items-center h-3/4 bg-red-200 justify-center">
                 <div className="bg-red-400 h-full">
                     <img src={RegisterImg} alt="Rasm" className="h-full" />
@@ -50,17 +50,26 @@ export const Register = () => {
                             <div>
                                 <h1 className="font-semibold text-2xl">Register</h1>
                                 <p className="text-sm">Create your account here:</p>
+                                {message && (
+                                    <p
+                                        className={`text-center text-sm mt-3 ${message === "Registration successful!"
+                                            ? "text-green-600"
+                                            : "text-red-600"
+                                            }`}
+                                    >
+                                        {message}
+                                    </p>
+                                )}
                             </div>
 
                             <div>
                                 Phone Number:
                                 <div className="flex justify-between border border-black rounded-xl overflow-hidden">
-                                    <button
-                                        type="button"
-                                        className="w-1/6 text-[12px] md:text-lg bg-transparent text-white border-r bg-wishlistBg border-white"
+                                    <h1
+                                        className="w-1/6 flex items-center justify-center bg-container text-[12px] md:text-lg  text-white border-r  border-white"
                                     >
                                         +998
-                                    </button>
+                                    </h1>
                                     <input
                                         type="text"
                                         name="phoneNumber"
@@ -131,21 +140,11 @@ export const Register = () => {
                                     onChange={handleInputChange}
                                 />
                             </div>
-                            {/* 
-                            {message && (
-                                <p
-                                    className={`text-center text-sm mt-3 ${message === "Registration successful!"
-                                            ? "text-green-600"
-                                            : "text-red-600"
-                                        }`}
-                                >
-                                    {message}
-                                </p>
-                            )} */}
+
 
                             <button
                                 type="submit"
-                                className="bg-hoverBg font-semibold py-3 text-white rounded-xl"
+                                className="bg-meteor font-semibold py-3 text-white rounded-xl"
                             >
                                 Register
                             </button>

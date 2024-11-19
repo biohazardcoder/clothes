@@ -1,3 +1,4 @@
+import { Footer } from "../../components/shared/Footer/Footer";
 import Advantage from "../Advantage/Advantage";
 import Bestseller from "../Bestseller/Bestseller";
 import Deal from "../Deal/Deal";
@@ -6,7 +7,7 @@ import Instagram from "../Instagram/Instagram";
 
 export const Home = () => {
 
-
+  const isWishlistPage = location.pathname === "/wishlist";
   return (
     <>
       <Entry />
@@ -14,6 +15,7 @@ export const Home = () => {
       <Deal />
       <Instagram />
       <Advantage />
+      {!isWishlistPage && <Footer />}
     </>
   );
 };

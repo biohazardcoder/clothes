@@ -1,117 +1,64 @@
-import React, { useEffect, useState } from 'react';
-import Axios from '../../Axios';
-import { Link } from 'react-router-dom';
-import { MdDelete } from 'react-icons/md';
-import { FaShopify } from 'react-icons/fa';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Button from "../../components/ui/Button";
+import { FaEye, FaHeart, FaHeartBroken } from "react-icons/fa";
 
-function Wishlist() {
-    const [wishlistProducts, setWishlistProducts] = useState([]);
-    const [selectedProducts, setSelectedProducts] = useState([]);
+export default function Wishlist() {
+    const [wishlist, setWishlist] = useState(
+        JSON.parse(localStorage.getItem("wishlist")) || []
+    );
 
-    useEffect(() => {
-        const savedProductIds = JSON.parse(localStorage.getItem("saved_products")) || [];
-
-        if (savedProductIds.length > 0) {
-            Promise.all(savedProductIds.map(id => Axios.get(`product/${id}`)))
-                .then((responses) => {
-                    const data = responses.map(response => response.data);
-                    const products = data.map(data => data.data);
-                    setWishlistProducts(products);
-                })
-                .catch((error) => {
-                    console.error("Error fetching wishlist products:", error);
-                });
-        }
-    }, []);
-
-    const handleSelectProduct = (productId) => {
-        setSelectedProducts(prevSelected =>
-            prevSelected.includes(productId)
-                ? prevSelected.filter(id => id !== productId)
-                : [...prevSelected, productId]
-        );
+    const removeFromWishlist = (productId) => {
+        const updatedWishlist = wishlist.filter((item) => item._id !== productId);
+        setWishlist(updatedWishlist);
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
     };
 
-    const handleDeleteSelected = () => {
-        const updatedWishlist = wishlistProducts.filter(
-            product => !selectedProducts.includes(product._id)
+    if (wishlist.length === 0) {
+        return (
+            <div className="min-h-screen h-screen bg-zinc-900 text-white px-4">
+                <div className="container flex h-full justify-center items-center mx-auto">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="text-center text-white text-4xl">
+                            Your wishlist is empty. 😔
+                        </div>
+                    </div>
+                </div>
+            </div>
         );
-        const updatedProductIds = updatedWishlist.map(product => product._id);
-
-        setWishlistProducts(updatedWishlist);
-        setSelectedProducts([]);
-        localStorage.setItem("saved_products", JSON.stringify(updatedProductIds));
-    };
+    }
 
     return (
-        <div className="w-full min-h-screen bg-[#1B1D22] text-white p-4">
-            <h1 className="text-3xl mb-6">Wishlist</h1>
-            {wishlistProducts.length > 0 ? (
-                <div className="overflow-auto">
-                    <table className="min-w-full bg-[#333] text-white border-separate border-spacing-0 rounded-lg">
-                        <thead>
-                            <tr className="bg-[#444] text-xs sm:text-sm">
-                                <th className="p-2 border border-gray-600">Select</th>
-                                <th className="p-2 border border-gray-600">Image</th>
-                                <th className="p-2 border border-gray-600">Title</th>
-                                <th className="p-2 border border-gray-600">Price</th>
-                                <th className="p-2 border border-gray-600">Quantity</th>
-                                <th className="p-2 border border-gray-600">Total Price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {wishlistProducts.map((product) => (
-                                <tr key={product._id} className="bg-[#1B1D22] text-center text-xs sm:text-sm">
-                                    <td className="p-2 border-b border-gray-600">
-                                        <input
-                                            type="checkbox"
-                                            className="w-4 h-4 accent-green-500"
-                                            checked={selectedProducts.includes(product._id)}
-                                            onChange={() => handleSelectProduct(product._id)}
-                                        />
-                                    </td>
-                                    <td className="p-2 border-b border-gray-600">
-                                        <img
-                                            src={product.photos}
-                                            alt={product.title}
-                                            className="h-12 w-12 object-cover sm:h-16 sm:w-16 mx-auto rounded-lg"
-                                        />
-                                    </td>
-                                    <td className="p-2 border-b border-gray-600">{product.title}</td>
-                                    <td className="p-2 border-b border-gray-600">${product.price}</td>
-                                    <td className="p-2 border-b border-gray-600">- 0 +</td>
-                                    <td className="p-2 border-b border-gray-600">${product.price}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            ) : (
-                <p className="text-center mt-10">Your wishlist is empty.</p>
-            )}
-            <div className="mt-4 flex items-center justify-between">
-                <Link to="/">
-                    <button className="py-2 px-4 bg-[#141414] text-xs sm:text-sm rounded-md hover:bg-[#000] transition-colors duration-300">
-                        Back to Home
-                    </button>
-                </Link>
-                <div className="flex items-center gap-2">
-                    <button
-                        className="flex items-center gap-1 py-2 px-4 bg-red-500 text-xs sm:text-sm rounded-md hover:bg-red-700 transition-colors duration-300"
-                        onClick={handleDeleteSelected}
-                        disabled={selectedProducts.length === 0}
-                    >
-                        <MdDelete />
-                        Delete from Wishlist
-                    </button>
-                    <button className="flex items-center gap-1 py-2 px-4 sm:py1 sm:px2 bg-green-500 text-xs sm:text-sm rounded-md hover:bg-green-700 transition-colors duration-300">
-                        <FaShopify />
-                        Buy selected Products
-                    </button>
+        <div className="min-h-screen bg-zinc-900 text-white py-36 px-4">
+            <div className="container mx-auto">
+                <h1 className="text-3xl font-bold mb-8">Your Wishlist</h1>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {wishlist.map((item) => (
+                        <div key={item._id} className="bg-[#333] relative rounded-lg p-4 text-white">
+                            <img
+                                src={item.photos[0]}
+                                alt={item.title}
+                                className="w-full object-cover h-[200px] rounded-md"
+                            />
+                            <h3 className="font-semibold mt-2">{item.title}</h3>
+                            <h2>
+                                Narxi:{" "}
+                                {new Intl.NumberFormat("uz-UZ").format(item.price)} so'm
+                            </h2>
+                            <button
+                                onClick={removeFromWishlist}
+                                className="absolute top-5 hover:bg-highlight hover:text-white bg-white text-highlight right-5 flex items-center gap-2 p-2 rounded-md transition-colors duration-300">
+                                <FaHeartBroken />
+                            </button>
+                            <Link to={`/detail/${item._id}`}>
+                                <button className="text-[#9A836C]  hover:bg-highlight hover:text-white  absolute top-16 right-5 flex items-center gap-2 p-2 rounded-md bg-white transition-colors duration-300">
+                                    <FaEye />
+                                </button>
+                            </Link>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
     );
 }
-
-export default Wishlist;
