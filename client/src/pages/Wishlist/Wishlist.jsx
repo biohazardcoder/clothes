@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Button from "../../components/ui/Button";
-import { FaEye, FaHeart, FaHeartBroken } from "react-icons/fa";
+import { FaEye, FaHeartBroken } from "react-icons/fa";
 
 export default function Wishlist() {
     const [wishlist, setWishlist] = useState(
@@ -46,12 +45,12 @@ export default function Wishlist() {
                                 {new Intl.NumberFormat("uz-UZ").format(item.price)} so'm
                             </h2>
                             <button
-                                onClick={removeFromWishlist}
+                                onClick={() => removeFromWishlist(item._id)} // Pass the item's ID here
                                 className="absolute top-5 hover:bg-highlight hover:text-white bg-white text-highlight right-5 flex items-center gap-2 p-2 rounded-md transition-colors duration-300">
                                 <FaHeartBroken />
                             </button>
                             <Link to={`/detail/${item._id}`}>
-                                <button className="text-[#9A836C]  hover:bg-highlight hover:text-white  absolute top-16 right-5 flex items-center gap-2 p-2 rounded-md bg-white transition-colors duration-300">
+                                <button className="text-[#9A836C] hover:bg-highlight hover:text-white absolute top-16 right-5 flex items-center gap-2 p-2 rounded-md bg-white transition-colors duration-300">
                                     <FaEye />
                                 </button>
                             </Link>
