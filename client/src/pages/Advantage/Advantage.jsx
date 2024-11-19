@@ -2,6 +2,7 @@ import React from 'react'
 import { SlEarphones } from "react-icons/sl";
 import { BsBox2 } from "react-icons/bs";
 import { PiMoney } from "react-icons/pi";
+import { Container } from '../../components/shared/Container/Container';
 
 function Advantage() {
     const features = [
@@ -22,18 +23,18 @@ function Advantage() {
         },
     ];
     return (
-        <div>
-            <div className="flex justify-center space-x-12 bg-container text-primary py-10">
+        <div className='bg-container'>
+            <Container className="flex justify-center space-x-12  text-primary py-10">
                 {features.map((feature, index) => (
                     <div key={index} className="text-center max-w-xs">
-                        <h1 className="text-4xl flex justify-center items-center mb-4">
+                        <h1 className="text-2xl md:text-5xl flex justify-center items-center mb-4">
                             {feature.icon}
                         </h1>
-                        <h3 className="text-lg font-bold">{feature.title}</h3>
-                        <p className="text-secontary">{feature.description}</p>
+                        <h3 className="text-lg md:text-2xl font-bold">{feature.title}</h3>
+                        <p className="text-secontary text-sm md:text-lg">{feature.description}</p>
                     </div>
                 ))}
-            </div>
+            </Container>
         </div>
     )
 }

@@ -3,11 +3,25 @@ import { DealImg } from "../../images/images";
 import Button from "../../components/ui/Button";
 
 const Deal = () => {
-    const [timeLeft, setTimeLeft] = useState({
-        days: 29,
-        hours: 18,
-        minutes: 15,
-        seconds: 10,
+    const [timeLeft, setTimeLeft] = useState(() => {
+        // LocalStorage'dan vaqtni olish
+        const savedTime = localStorage.getItem("dealEndTime");
+        const currentTime = Date.now();
+
+        if (savedTime && currentTime < savedTime) {
+            const remainingTime = savedTime - currentTime;
+            return {
+                days: Math.floor(remainingTime / (1000 * 60 * 60 * 24)),
+                hours: Math.floor((remainingTime / (1000 * 60 * 60)) % 24),
+                minutes: Math.floor((remainingTime / (1000 * 60)) % 60),
+                seconds: Math.floor((remainingTime / 1000) % 60),
+            };
+        }
+
+        // Agar LocalStorage bo'sh bo'lsa yoki vaqt tugagan bo'lsa, yangi vaqtni sozlash
+        const newEndTime = currentTime + 30 * 24 * 60 * 60 * 1000; // 30 kun
+        localStorage.setItem("dealEndTime", newEndTime);
+        return { days: 30, hours: 0, minutes: 0, seconds: 0 };
     });
 
     const [isTimeUp, setIsTimeUp] = useState(false);
@@ -32,8 +46,11 @@ const Deal = () => {
                     hours = 23;
                     days -= 1;
                 } else {
-                    clearInterval(timer);
+                    // Vaqt tugaganda yangi 30 kunni sozlash
+                    const newEndTime = Date.now() + 30 * 24 * 60 * 60 * 1000;
+                    localStorage.setItem("dealEndTime", newEndTime);
                     setIsTimeUp(true);
+                    return { days: 30, hours: 0, minutes: 0, seconds: 0 };
                 }
 
                 return { days, hours, minutes, seconds };
@@ -77,9 +94,7 @@ const Deal = () => {
                         </div>
                     ))}
                 </div>
-                <Button className="px-6 py-3  ">
-                    View All Products →
-                </Button>
+                <Button className="px-6 py-3">View All Products →</Button>
             </div>
         </div>
     );

@@ -10,6 +10,7 @@ function Bestseller() {
     const [wishlist, setWishlist] = useState(
         JSON.parse(localStorage.getItem("wishlist")) || []
     );
+    const [randomProducts, setRandomProducts] = useState([]);
     const { data } = useSelector((state) => state.products);
     const dispatch = useDispatch();
 
@@ -35,6 +36,14 @@ function Bestseller() {
             });
     }, [dispatch]);
 
+    useEffect(() => {
+        if (data.length > 0) {
+            // Shuffle the data and pick the first 4 products
+            const shuffled = [...data].sort(() => 0.5 - Math.random());
+            setRandomProducts(shuffled.slice(0, 4));
+        }
+    }, [data]);
+
     const isProductInWishlist = (productId) =>
         wishlist.some((product) => product._id === productId);
 
@@ -43,7 +52,7 @@ function Bestseller() {
             <Container>
                 <h1 className="mb-10 text-white text-3xl">Our Bestseller</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {data.map((product) => (
+                    {randomProducts.map((product) => (
                         <div key={product._id} className="text-white bg-[#333] rounded-lg p-4">
                             <figure className="w-full relative overflow-hidden">
                                 <img
