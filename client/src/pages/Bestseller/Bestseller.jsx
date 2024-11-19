@@ -4,6 +4,7 @@ import { FaEye, FaHeart, FaRegHeart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import Axios from "../../Axios"
 import { getProductSuccess } from '../../toolkit/ProductsSlicer';
+import { Link } from 'react-router-dom';
 
 function Bestseller() {
     const [wishlist, setWishlist] = useState([]);
@@ -59,11 +60,14 @@ function Bestseller() {
                                     {isProductInWishlist(product.id) ? <FaHeart /> : <FaRegHeart />}
                                 </button>
 
-                                <button
-                                    className="text-[#9A836C] absolute top-16 right-5 flex items-center gap-2 p-2 rounded-md bg-white transition-colors duration-300 "
-                                >
-                                    <FaEye />
-                                </button>
+                                <Link to={`detail/${product.id}`}>
+                                    <button
+
+                                        className="text-[#9A836C] absolute top-16 right-5 flex items-center gap-2 p-2 rounded-md bg-white transition-colors duration-300 "
+                                    >
+                                        <FaEye />
+                                    </button>
+                                </Link>
                             </figure>
                             <h3 className="font-semibold ">
                                 {product.title}

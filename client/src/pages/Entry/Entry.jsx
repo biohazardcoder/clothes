@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container } from '../../components/shared/Container/Container'
-import { Link } from 'react-router-dom'
-import { ArrowRight } from '@phosphor-icons/react'
+import Button from '../../components/ui/Button'
 
 function Entry() {
     return (
@@ -11,19 +10,17 @@ function Entry() {
                     <h1 className="text-white text-6xl font-bold">
                         O'zingiz Yoqtirgan Hashamatli Uslubni Kashf Eting.
                     </h1>
-                    <p className="text-[#B1B1B1] font-light">
+                    <p className="text-secontary font-light">
                         What looked like a small patch of purple grass, above five feet
                         square, was moving across the sand in their direction. Almost do
                         am or limits hearts. Resolve parties but why she shewing. She sang
                         know now how nay cold real case.
                     </p>
-                    <Link
-                        to="/more-info"
-                        className="text-[#9A836C] border-2 border-[#9A836C] text-2xl py-3 px-4 flex items-center justify-center gap-4"
-                    >
-                        Read more
-                        <ArrowRight />
-                    </Link>
+                    <Button
+                        to="/shop"
+                        className="px-6 py-3  ">
+                        View All Products →
+                    </Button>
                 </div>
             </Container>
         </section>

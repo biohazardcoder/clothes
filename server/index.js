@@ -46,8 +46,9 @@ app.post("/upload", upload.array("photos"), async (req, res) => {
   console.log("Successfully send a image")
 });
 
-app.get("/", (_, res) => res.send("Hello world!"));
 
+
+app.get("/", (_, res) => res.send("Hello world!"));
 app.use("/admin", AdminRoutes);
 app.use("/client", ClientRoutes);
 app.use("/product", ProductRoutes);

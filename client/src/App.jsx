@@ -9,6 +9,7 @@ import Axios from "./Axios";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import { Register } from "./pages/auth/Register/Register";
+import Detail from "./pages/Detail/Detail";
 
 
 function App() {
@@ -45,7 +46,7 @@ function App() {
           element: <Home />,
         },
         {
-          path: "/d/:id",
+          path: "/profile",
           element: <Dashboard />,
         },
         {
@@ -60,6 +61,10 @@ function App() {
           path: "/register",
           element: <Register />,
         },
+        {
+          path: "/detail/:id",
+          element: <Detail />
+        }
       ],
     },
   ]);

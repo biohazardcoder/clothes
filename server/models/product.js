@@ -7,6 +7,10 @@ const ProductSchema = new mongoose.Schema({
   company: { type: String, required: true },
   stock: { type: Number, required: true },
   size: { type: String, required: true },
+  color: [
+    { color: { type: String, required: true } }
+  ],
+  sale: { type: Number },
   photos: [{ type: String, required: true }],
 });
 

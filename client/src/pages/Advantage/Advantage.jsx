@@ -23,14 +23,14 @@ function Advantage() {
     ];
     return (
         <div>
-            <div className="flex justify-center space-x-12 text-mainText py-10">
+            <div className="flex justify-center space-x-12 bg-container text-primary py-10">
                 {features.map((feature, index) => (
                     <div key={index} className="text-center max-w-xs">
                         <h1 className="text-4xl flex justify-center items-center mb-4">
                             {feature.icon}
                         </h1>
                         <h3 className="text-lg font-bold">{feature.title}</h3>
-                        <p className="text-gray-500">{feature.description}</p>
+                        <p className="text-secontary">{feature.description}</p>
                     </div>
                 ))}
             </div>
