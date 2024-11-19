@@ -2,7 +2,4 @@ export { default as LoginImg } from "./login.png"
 export { default as Logo } from "./logo.png"
 export { default as RegisterImg } from "./register.png"
 export { default as DealImg } from "./dealimg.jpg"
-export { default as FirstImg } from "./firstImg.jfif"
-export { default as SecondImg } from "./secondImg.jpg"
-export { default as ThirdImg } from "./thirdImg.jpg"
-export { default as FourthImg } from "./fourthImg.jpg"
+

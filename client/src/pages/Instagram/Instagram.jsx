@@ -1,7 +1,9 @@
 import React from "react";
 import { FaInstagram } from "react-icons/fa";
-import { FirstImg, SecondImg, ThirdImg, FourthImg } from "../../images/images";
-
+import FirstImg from "./firstImg.jfif"
+import SecondImg from "./secondImg.jpg"
+import ThirdImg from "./thirdImg.jpg"
+import FourthImg from "./fourthImg.jpg"
 const Instagram = () => {
     return (
         <div className="flex flex-col min-h-[50vh] items-center justify-center bg-container text-white p-6">

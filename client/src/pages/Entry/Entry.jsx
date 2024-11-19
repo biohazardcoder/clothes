@@ -7,7 +7,7 @@ function Entry() {
         <section className="h-screen hero_bg">
             <Container className="grid grid-cols-1 lg:grid-cols-2 h-full items-center gap-12">
                 <div className="flex flex-col h-full justify-center items-start gap-10">
-                    <h1 className="text-white text-6xl font-bold">
+                    <h1 className="text-primary text-6xl font-bold">
                         O'zingiz Yoqtirgan Hashamatli Uslubni Kashf Eting.
                     </h1>
                     <p className="text-secontary font-light">

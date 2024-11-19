@@ -36,7 +36,7 @@ function Detail() {
     return (
         <div className="bg-meteor min-h-screen text-primary p-20">
             <Container className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="flex justify-center col-span-1   items-center bg-container px-0 md:px-4 rounded-2xl shadow-xl ">
+                <div className="flex justify-center col-span-1   items-center  px-0 md:px-4 rounded-2xl shadow-xl ">
                     <img
                         src={product.photos[0]}
                         alt={product.title}
@@ -44,7 +44,6 @@ function Detail() {
                     />
                 </div>
 
-                {/* Product Details Section */}
                 <div className="bg-container col-span-1 md:col-span-2 p-6 rounded-2xl shadow-xl space-y-6">
                     <h1 className="text-4xl font-bold text-primary">{product.title}</h1>
                     <p className="text-lg text-secontary">{product.company}</p>
@@ -60,20 +59,11 @@ function Detail() {
                         )}
                     </div>
 
-                    {/* Size Section */}
-                    {product.size && (
-                        <div className="mt-4">
-                            <span className="text-lg font-semibold text-primary">Size:</span>
-                            <span className="text-lg text-secontary ml-2">{product.size}</span>
-                        </div>
-                    )}
-
                     <div className="mt-4">
                         <span className="text-lg font-semibold text-primary">Stock:</span>
                         <span className="text-lg text-secontary ml-2">{product.stock}</span>
                     </div>
 
-                    {/* Choose Size Section */}
                     {product.size && (
                         <div className="mt-6">
                             <h3 className="text-xl font-semibold text-primary">Choose Size</h3>
@@ -81,7 +71,7 @@ function Detail() {
                                 {product.size.split(', ').map((size) => (
                                     <button
                                         key={size}
-                                        className="px-6 py-3 border-2 border-primary rounded-full text-primary font-semibold hover:bg-primary hover:text-white transition-all duration-300"
+                                        className="px-3 py-1 border-2 border-primary rounded-full text-primary font-semibold hover:bg-primary hover:text-white transition-all duration-300"
                                     >
                                         {size}
                                     </button>

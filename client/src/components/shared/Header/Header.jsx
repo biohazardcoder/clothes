@@ -48,10 +48,7 @@ export const Header = () => {
       title: "About",
       url: "/about"
     },
-    {
-      title: "Blog",
-      url: "/blog"
-    },
+
   ]
   return (
     <>
@@ -83,8 +80,7 @@ export const Header = () => {
             <div className="flex items-center justify-center gap-4">
               {!isAuth ? (
                 <Button
-                  className="flex items-center p-2 font-semibold "
-                  link="flex items-center gap-2"
+                  className=" flex items-center gap-2 p-2 font-semibold "
                   to="/login"
                 >
                   <User weight="bold" />

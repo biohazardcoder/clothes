@@ -10,6 +10,9 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Wishlist from "./pages/Wishlist/Wishlist";
 import { Register } from "./pages/auth/Register/Register";
 import Detail from "./pages/Detail/Detail";
+import { Error } from "./pages/Error/Error";
+import { AboutUs } from "./pages/About/About";
+import { Shop } from "./pages/Shop/Shop";
 
 
 function App() {
@@ -58,12 +61,24 @@ function App() {
           element: <Login />,
         },
         {
+          path: "/shop",
+          element: <Shop />,
+        },
+        {
           path: "/register",
           element: <Register />,
         },
         {
           path: "/detail/:id",
           element: <Detail />
+        },
+        {
+          path: "/about",
+          element: <AboutUs />
+        },
+        {
+          path: "*",
+          element: <Error />
         }
       ],
     },

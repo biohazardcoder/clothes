@@ -38,7 +38,6 @@ function Bestseller() {
 
     useEffect(() => {
         if (data.length > 0) {
-            // Shuffle the data and pick the first 4 products
             const shuffled = [...data].sort(() => 0.5 - Math.random());
             setRandomProducts(shuffled.slice(0, 4));
         }
@@ -61,12 +60,12 @@ function Bestseller() {
                                     alt={product.title}
                                 />
                                 <button
-                                    className="absolute top-5 bg-white text-[#9A836C] right-5 flex items-center gap-2 p-2 rounded-md transition-colors duration-300"
+                                    className="absolute top-5 bg-white text-highlight right-5 flex items-center gap-2 p-2 rounded-md transition-colors duration-300"
                                     onClick={() => toggleWishlist(product)}
                                 >
                                     {isProductInWishlist(product._id) ? <FaHeart /> : <FaRegHeart />}
                                 </button>
-                                <Link to={`detail/${product._id}`}>
+                                <Link to={`/detail/${product._id}`}>
                                     <button className="text-[#9A836C] absolute top-16 right-5 flex items-center gap-2 p-2 rounded-md bg-white transition-colors duration-300">
                                         <FaEye />
                                     </button>
