@@ -7,106 +7,128 @@ import { LoginImg } from "../../../images/images";
 import { Link } from "react-router-dom";
 
 export const Login = () => {
-    const [phone, setPhone] = useState("");
-    const [password, setPassword] = useState("");
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-    const { isAuth } = useSelector((state) => state.user);
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const { isAuth } = useSelector((state) => state.user);
 
-    useEffect(() => {
-        if (isAuth) {
-            window.location.href = "/";
-        }
-    }, [isAuth]);
+  useEffect(() => {
+    if (isAuth) {
+      window.location.href = "/";
+    }
+  }, [isAuth]);
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-        try {
-            const { data } = await Axios.post("client/login", {
-                password,
-                phoneNumber: +phone,
-            });
+    try {
+      const { data } = await Axios.post("client/login", {
+        password,
+        phoneNumber: +phone,
+      });
 
-            Cookies.set("token", data.token, { secure: true, expires: 7 });
-            window.location.href = "/";
-        } catch (err) {
-            console.log(err.response?.data.message || "Login failed");
-        }
-    };
+      Cookies.set("token", data.token, { secure: true, expires: 7 });
+      window.location.href = "/";
+    } catch (err) {
+      console.log(err.response?.data.message || "Login failed");
+    }
+  };
 
-    return (
-        <>
-            <section className="h-screen flex justify-center  items-center bg-container">
-                <div className="flex items-center h-3/4 bg-white  justify-center">
-                    <div className="bg-red-400 h-full ">
-                        <img src={LoginImg} alt="Rasm" className="h-full" />
-                    </div>
-                    <div className="h-full flex items-center justify-center">
-                        <div className="">
-                            <form
-                                className="flex flex-col h-full gap-5 w-full md:w-[500px]  text-black p-10 "
-                                onSubmit={handleLogin}
-                            >
-
-                                <div>
-                                    <h1 className="font-semibold text-2xl">Welcome!</h1>
-                                    <p className="text-sm">Please login here:</p>
-                                </div>
-                                <div>
-                                    Phone Number:
-                                    <div className="flex h justify-between border bg-container border-black rounded-xl   overflow-hidden">
-                                        <h1
-                                            className="w-1/6 flex items-center justify-center text-[12px] md:text-lg bg-transparent text-white border-r  border-white"
-                                        >
-                                            +998
-                                        </h1>
-                                        <input
-                                            type="text"
-                                            className="p-2 outline-none w-5/6 bg-white text-black"
-                                            placeholder="Телефонный номер"
-                                            value={phone}
-                                            onChange={(e) => setPhone(e.target.value)}
-                                        />
-                                    </div>
-                                </div>
-                                <div>
-                                    Password:
-                                    <div className="relative" >
-                                        <input
-                                            type={isPasswordVisible ? "text" : "password"}
-                                            className="border border-black p-2 w-full rounded-xl bg-transparent text-black"
-                                            placeholder="Введите пароль"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                        />
-                                        <div
-                                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
-                                            onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                                        >
-                                            {isPasswordVisible ? (
-                                                <EyeSlash size={24} color="#000" />
-                                            ) : (
-                                                <Eye size={24} color="#000" />
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
-                                <p>
-                                    If you don't have an account: {" "}
-                                    <Link to={"/register"} className="text-[dodgerblue] underline">Register</Link> {" "}
-                                    here
-                                </p>
-                                <button
-                                    type="submit"
-                                    className="bg-meteor font-semibold py-3 text-white rounded-xl"
-                                >
-                                    Login
-                                </button>
-                            </form>
-                        </div>
-                    </div>
+  return (
+    <section className="min-h-screen flex items-center justify-center bg-mainBg p-4">
+      <div className="w-full max-w-md">
+        <div className="bg-sidebarBg rounded-2xl shadow-xl overflow-hidden">
+          <div
+            className="h-48 bg-cover bg-center md:hidden"
+            style={{ backgroundImage: `url(${LoginImg})` }}
+          ></div>
+          <div className="md:flex">
+            <div className="hidden md:block md:w-1/2">
+              <img
+                src={LoginImg}
+                alt="Login"
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <div className="p-8 md:w-1/2">
+              <h2 className="text-2xl font-bold text-mainText mb-4">
+                Welcome!
+              </h2>
+              <p className="text-sidebarText mb-6">
+                Please login to your account
+              </p>
+              <form onSubmit={handleLogin} className="space-y-6">
+                <div>
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-medium text-mainText mb-1"
+                  >
+                    Phone Number
+                  </label>
+                  <div className="flex rounded-md shadow-sm">
+                    <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-hoverBg bg-productBg text-sidebarText text-sm">
+                      +998
+                    </span>
+                    <input
+                      id="phone"
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-highlight focus:border-highlight sm:text-sm border-hoverBg bg-productBg text-mainText"
+                      placeholder="Phone number"
+                    />
+                  </div>
                 </div>
-            </section>
-        </>
-    );
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-mainText mb-1"
+                  >
+                    Password
+                  </label>
+                  <div className="relative rounded-md shadow-sm">
+                    <input
+                      id="password"
+                      type={isPasswordVisible ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-highlight focus:border-highlight sm:text-sm border-hoverBg bg-productBg text-mainText"
+                      placeholder="Enter password"
+                    />
+                    <div
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                      onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                    >
+                      {isPasswordVisible ? (
+                        <EyeSlash size={20} className="text-sidebarText" />
+                      ) : (
+                        <Eye size={20} className="text-sidebarText" />
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button
+                    type="submit"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-highlightText bg-highlight hover:bg-mainBg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-highlight"
+                  >
+                    Login
+                  </button>
+                </div>
+              </form>
+              <p className="mt-4 text-center text-sm text-sidebarText">
+                Don't have an account?{" "}
+                <Link
+                  to="/register"
+                  className="font-medium text-highlight hover:text-highlightText"
+                >
+                  Register here
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };

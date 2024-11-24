@@ -8,16 +8,16 @@ import { Container } from "../Container/Container";
 
 export const Footer = () => {
   return (
-    <section className="bg-meteor text-primary">
+    <section className="bg-mainBg text-primary">
       <Container
         className={"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 py-20 gap-5"}
       >
         <div className="flex flex-col text-primary gap-7 mb-5 md:mb-0">
-          <p className="text-sm opacity-60 font-extralight  w-full md:w-[70%]">
+          <p className="text-mainText text-sm opacity-60 font-extralight  w-full md:w-[70%]">
             When it came near enough he perceived that it was not grass; there
             were no blades, but only purple roots the roots.
           </p>
-          <p className=" text-primary">
+          <p className=" text-mainText">
             © {new Date().getFullYear()} Watchs. {" "}
             <span className="">
               All Rights Reserved
@@ -25,13 +25,13 @@ export const Footer = () => {
           </p>
         </div>
         <ul className="flex flex-col gap-4">
-          <h1 className="text-2xl font-bold">Contact</h1>
+          <h1 className="text-2xl font-bold text-mainText">Contact</h1>
           <li className="text-md flex items-center gap-1">
-            <span> Email:</span>
+            <span className="text-mainText"> Email:</span>
             <span className="text-highlight">times@gmail.com</span>
           </li>
           <li className="text-md flex items-center gap-1">
-            <span> Phone:</span>
+            <span className="text-mainText"> Phone:</span>
             <a href="tel: +998901234567">
               <span className="text-highlight">+998 (90) 123 45 67</span>
             </a>

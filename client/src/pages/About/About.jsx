@@ -4,7 +4,7 @@ import { Footer } from "../../components/shared/Footer/Footer";
 
 export const AboutUs = () => {
     return (
-        <div className="bg-container min-h-screen w-full">
+        <div className="bg-container min-h-screen w-full">  
             <Container>
                 <main className="max-w-4xl mx-auto  py-20  px-4 text-primary">
                     <section className="text-center mb-8">
