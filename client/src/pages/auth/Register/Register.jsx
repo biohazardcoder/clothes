@@ -36,8 +36,8 @@ export const Register = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-mainBg p-4">
-      <div className="w-full max-w-4xl bg-sidebarBg rounded-2xl shadow-xl overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center bg-container p-4">
+      <div className="w-full max-w-4xl bg-[white] rounded-2xl shadow-xl overflow-hidden">
         <div className="md:flex">
           <div className="md:w-1/2 relative">
             <img
@@ -51,11 +51,10 @@ export const Register = () => {
             <p className="text-sidebarText mb-6">Create your account here:</p>
             {message && (
               <p
-                className={`text-center text-sm mb-4 ${
-                  message === "Registration successful!"
-                    ? "text-success"
-                    : "text-error"
-                }`}
+                className={`text-center text-sm mb-4 ${message === "Registration successful!"
+                  ? "text-success"
+                  : "text-error"
+                  }`}
               >
                 {message}
               </p>

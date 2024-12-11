@@ -25,11 +25,11 @@ export const Header = () => {
   };
 
   return (
-    <header className={`h-[70px] sticky top-0 z-40 bg-[#0D1117] shadow-md`}>
+    <header className={`h-[70px] sticky top-0 z-40 bg-meteor shadow-md`}>
       <Container className="h-full flex justify-between items-center px-4 md:px-8">
         <Link
           to="/"
-          className="text-2xl flex items-center gap-2 font-serif font-semibold text-[#FF7F50]"
+          className="text-2xl flex items-center gap-2 font-serif font-semibold text-[#fff]"
         >
           <img src={Logo} alt="" className="w-[25px] object-cover" />
           ELDORADO
@@ -41,7 +41,7 @@ export const Header = () => {
               <li key={index}>
                 <Link
                   to={li.url}
-                  className="hover:text-[#FF7F50] transition-colors duration-200"
+                  className="hover:text-[#fff] transition-colors duration-200"
                 >
                   {li.title}
                 </Link>
@@ -53,7 +53,7 @@ export const Header = () => {
         <div className="flex items-center gap-4">
           {!isAuth ? (
             <Button
-              className="flex items-center gap-2 py-2 px-4 font-medium bg-[#ff7f50] hover:bg-[#21262D] text-[#FFFFFF] rounded transition-colors duration-200"
+              className="flex items-center gap-2 py-2 px-4 font-medium   text-[#FFFFFF] rounded transition-colors duration-200"
               to="/login"
             >
               <User weight="bold" className="w-5 h-5" />
@@ -62,13 +62,13 @@ export const Header = () => {
           ) : (
             <div className="flex gap-3 items-center">
               <Link to="/wishlist">
-                <IoIosHeartEmpty className="text-[#FF7F50] text-2xl" />
+                <IoIosHeartEmpty className="text-[#fff] text-2xl" />
               </Link>
               <Link to="/shoplist">
-                <ShoppingCart className="text-[#FF7F50] text-2xl" />
+                <ShoppingCart className="text-[#fff] text-2xl" />
               </Link>
               <Link to="/profile">
-                <FiUser className="text-[#FF7F50] text-2xl" />
+                <FiUser className="text-[#fff] text-2xl" />
               </Link>
             </div>
           )}

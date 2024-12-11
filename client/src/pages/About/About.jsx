@@ -4,7 +4,7 @@ import { Footer } from "../../components/shared/Footer/Footer";
 
 export const AboutUs = () => {
     return (
-        <div className="bg-container min-h-screen w-full">  
+        <div className="bg-container min-h-screen w-full">
             <Container>
                 <main className="max-w-4xl mx-auto  py-20  px-4 text-primary">
                     <section className="text-center mb-8">
@@ -18,7 +18,7 @@ export const AboutUs = () => {
                     </section>
 
                     <section className="grid gap-6 sm:grid-cols-2">
-                        <div className="bg-meteor text-white shadow-md rounded-lg p-6">
+                        <div className="bg-meteor text-[white] shadow-md rounded-lg p-6">
                             <h3 className="text-xl font-medium mb-3">Our Values</h3>
                             <ul className="list-disc list-inside space-y-2">
                                 <li>Quality and craftsmanship in every piece.</li>
@@ -27,7 +27,7 @@ export const AboutUs = () => {
                             </ul>
                         </div>
 
-                        <div className="bg-meteor text-white shadow-md rounded-lg p-6">
+                        <div className="bg-meteor text-[white] shadow-md rounded-lg p-6">
                             <h3 className="text-xl font-medium mb-3">Our Story</h3>
                             <p>
                                 Founded in 2024, Eldorado started as a small boutique with a passion for unique and fashionable clothing.
@@ -62,6 +62,7 @@ export const AboutUs = () => {
                 </main>
 
             </Container>
+            <Footer />
         </div>
     );
 };

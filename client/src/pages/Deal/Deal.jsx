@@ -18,7 +18,6 @@ const Deal = () => {
             };
         }
 
-        // Agar LocalStorage bo'sh bo'lsa yoki vaqt tugagan bo'lsa, yangi vaqtni sozlash
         const newEndTime = currentTime + 30 * 24 * 60 * 60 * 1000; // 30 kun
         localStorage.setItem("dealEndTime", newEndTime);
         return { days: 30, hours: 0, minutes: 0, seconds: 0 };
@@ -46,7 +45,6 @@ const Deal = () => {
                     hours = 23;
                     days -= 1;
                 } else {
-                    // Vaqt tugaganda yangi 30 kunni sozlash
                     const newEndTime = Date.now() + 30 * 24 * 60 * 60 * 1000;
                     localStorage.setItem("dealEndTime", newEndTime);
                     setIsTimeUp(true);
@@ -87,7 +85,7 @@ const Deal = () => {
                     ].map((item, index) => (
                         <div
                             key={index}
-                            className="flex flex-col items-center justify-center p-4 bg-white border rounded-md shadow-sm text-gray-800"
+                            className="flex flex-col items-center justify-center p-4 bg-[white] border rounded-md shadow-sm text-gray-800"
                         >
                             <span className="text-3xl font-bold">{item.value}</span>
                             <span className="text-sm">{item.label}</span>

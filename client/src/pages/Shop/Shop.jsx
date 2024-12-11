@@ -5,14 +5,9 @@ import { Container } from "../../components/shared/Container/Container";
 import { getProductSuccess } from "../../toolkit/ProductsSlicer";
 import { useDispatch, useSelector } from "react-redux";
 import Axios from "../../Axios";
-
-// Skeleton Loader CSS (Tailwind does not support this out of the box)
-const skeletonLoader = `
-  @keyframes shimmer {
-    0% { background-position: -200px 0; }
-    100% { background-position: 200px 0; }
-  }
-`;
+import { TbCategory } from "react-icons/tb";
+import Advantage from "../Advantage/Advantage";
+import { Footer } from "../../components/shared/Footer/Footer";
 
 export const Shop = () => {
     const { data } = useSelector((state) => state.products);
@@ -23,7 +18,7 @@ export const Shop = () => {
         JSON.parse(localStorage.getItem("wishlist")) || []
     );
     const dispatch = useDispatch();
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect(() => {
         Axios.get("product")
             .then((response) => {
@@ -68,36 +63,57 @@ export const Shop = () => {
 
     return (
         <div className="bg-container">
-            <Container className="min-h-screen py-20 px-4">
-                <div className="flex flex-col md:flex-row items-center justify-between mb-8">
+            <Container className="min-h-screen py-10 px-4">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
                     <input
                         type="text"
                         placeholder="Search products..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className={`
-                            p-3 w-full md:w-1/3 mb-4 md:mb-0 rounded-xl bg-container border border-secondary focus:ring-2 focus:ring-highlight focus:outline-none transition-shadow shadow-sm text-primary hover:shadow-lg
+                            p-2 w-full md:w-1/4 mb-4 md:mb-0 rounded-xl bg-container border border-secondary focus:ring-2 focus:ring-highlight focus:outline-none transition-shadow shadow-sm text-primary hover:shadow-lg
                             ${isLoading ? "opacity-50 cursor-not-allowed" : ""}
                         `}
                         disabled={isLoading}
+
                     />
-                    <select
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                        className={`
-                            p-3 w-full md:w-1/4 mb-4 md:mb-0 rounded-xl bg-container border border-secondary text-primary focus:ring-2 focus:ring-highlight focus:outline-none transition-shadow shadow-sm hover:shadow-lg
-                            ${isLoading ? "opacity-50 cursor-not-allowed" : ""}
-                        `}
-                        disabled={isLoading}
+                    <button
+                        onClick={() => setIsModalOpen(true)}
+                        className="p-1 text-3xl mb-4 md:mb-0 text-primary transition-shadow shadow-sm hover:shadow-lg"
                     >
-                        {categories.map((category) => (
-                            <option key={category} value={category} className="bg-container text-primary">
-                                {category}
-                            </option>
-                        ))}
-                    </select>
+                        <TbCategory />
+                    </button>
                 </div>
-                {/* Loading Skeleton */}
+                {isModalOpen && (
+                    <div className="fixed inset-0 bg-[black] bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="bg-[white] rounded-lg p-6 w-3/4 max-w-md">
+                            <h3 className="text-lg font-semibold mb-4">Select Category</h3>
+                            <ul className="space-y-2">
+                                {categories.map((category) => (
+                                    <li
+                                        key={category}
+                                        className={`cursor-pointer p-2 rounded-md ${selectedCategory === category
+                                            ? "bg-highlight text-primary"
+                                            : ""
+                                            }`}
+                                        onClick={() => {
+                                            setSelectedCategory(category);
+                                            setIsModalOpen(false);
+                                        }}
+                                    >
+                                        {category}
+                                    </li>
+                                ))}
+                            </ul>
+                            <button
+                                onClick={() => setIsModalOpen(false)}
+                                className="mt-4 w-full bg-accent text-[#fff] py-2 rounded-lg "
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                )}
                 {isLoading ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {Array(8).fill().map((_, index) => (
@@ -118,7 +134,7 @@ export const Shop = () => {
                                     key={product._id}
                                     className="shadow-md rounded-lg overflow-hidden"
                                 >
-                                    <div className="text-white bg-[#333] rounded-lg p-4">
+                                    <div className="text-[white] bg-[#333] rounded-lg p-4">
                                         <figure className="w-full relative overflow-hidden">
                                             <img
                                                 className="w-full object-cover object-top h-[300px]"
@@ -126,13 +142,13 @@ export const Shop = () => {
                                                 alt={product.title}
                                             />
                                             <button
-                                                className="absolute top-5 bg-white text-[#9A836C] right-5 flex items-center gap-2 p-2 rounded-md transition-colors duration-300"
+                                                className="absolute top-5 bg-[white] text-[#9A836C] right-5 flex items-center gap-2 p-2 rounded-md transition-colors duration-300"
                                                 onClick={() => toggleWishlist(product)}
                                             >
                                                 {isProductInWishlist(product._id) ? <FaHeart /> : <FaRegHeart />}
                                             </button>
                                             <Link to={`/detail/${product._id}`}>
-                                                <button className="text-[#9A836C] absolute top-16 right-5 flex items-center gap-2 p-2 rounded-md bg-white transition-colors duration-300">
+                                                <button className="text-[#9A836C] absolute top-16 right-5 flex items-center gap-2 p-2 rounded-md bg-[white] transition-colors duration-300">
                                                     <FaEye />
                                                 </button>
                                             </Link>
@@ -140,7 +156,7 @@ export const Shop = () => {
                                         <h3 className="font-semibold mt-2">{product.title}</h3>
                                         <h2 className="mt-1 text-sm">
                                             Narxi:{" "}
-                                            <span className="text-lg font-bold text-white">
+                                            <span className="text-lg font-bold text-[white]">
                                                 {new Intl.NumberFormat("uz-UZ").format(product.price)} so'm
                                             </span>
                                         </h2>
@@ -148,10 +164,12 @@ export const Shop = () => {
                                 </div>
                             ))
                         ) : (
-                            <p className="text-gray-500 col-span-full text-center">No products found.</p>
+                            <p className="text-gray-500 col-span-full text-center text-[white]">No products found.</p>
                         )}
                     </div>
                 )}
+                <Advantage />
+                <Footer />
             </Container>
         </div>
     );

@@ -35,9 +35,9 @@ export const Login = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-mainBg p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-sidebarBg rounded-2xl shadow-xl overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center bg-container p-4">
+      <div className="w-full max-w-xl ">
+        <div className="bg-[white] rounded-2xl shadow-xl overflow-hidden">
           <div
             className="h-48 bg-cover bg-center md:hidden"
             style={{ backgroundImage: `url(${LoginImg})` }}
@@ -74,7 +74,7 @@ export const Login = () => {
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-highlight focus:border-highlight sm:text-sm border-hoverBg bg-productBg text-mainText"
+                      className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md  border"
                       placeholder="Phone number"
                     />
                   </div>
@@ -92,7 +92,7 @@ export const Login = () => {
                       type={isPasswordVisible ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-highlight focus:border-highlight sm:text-sm border-hoverBg bg-productBg text-mainText"
+                      className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border"
                       placeholder="Enter password"
                     />
                     <div
@@ -110,7 +110,7 @@ export const Login = () => {
                 <div>
                   <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-highlightText bg-highlight hover:bg-mainBg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-highlight"
+                    className="w-full flex justify-center py-2 px-4 border text-[white] rounded-md shadow-sm text-sm font-medium text-highlightText bg-highlight hover:bg-container transition-colors duration-300"
                   >
                     Login
                   </button>
@@ -120,7 +120,7 @@ export const Login = () => {
                 Don't have an account?{" "}
                 <Link
                   to="/register"
-                  className="font-medium text-highlight hover:text-highlightText"
+                  className="font-medium text-meteor underline hover:text-highlightText"
                 >
                   Register here
                 </Link>
