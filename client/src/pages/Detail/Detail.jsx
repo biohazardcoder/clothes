@@ -40,6 +40,7 @@ function Detail() {
             id: product.id,
             title: product.title,
             price: product.price,
+            quantity: product.quantity,
             img: product.photos[0],
             size: selectedSize,
             color: selectedColor,
@@ -60,6 +61,7 @@ function Detail() {
         return <div className="text-center py-10 text-error">{error}</div>;
     }
     console.log(product.size.split(", "));
+    console.log(product.color.split(", "));
 
     return (
         <div className="bg-container  text-primary pt-10">
@@ -99,7 +101,7 @@ function Detail() {
                                 <button
                                     key={size}
                                     onClick={() => setSelectedSize(size)}
-                                    className={`px-3 py-1 border-2 rounded-lg text-primary font-semibold transition-all duration-300 ${selectedSize === size ? 'bg-[white] text-[black] border-[black]' : 'border-primary hover:bg-primary hover:text-white'
+                                    className={`px-3 py-1 border-2 rounded-lg text-primary font-semibold transition-all duration-300 ${selectedSize === size ? 'bg-[white] text-accent' : ''
                                         }`}
                                 >
                                     {size}
@@ -110,7 +112,7 @@ function Detail() {
                     <div className="mt-6">
                         <h3 className="text-xl font-semibold text-primary">Choose Color</h3>
                         <div className="flex gap-6 mt-2">
-                            {product.color.map((color, index) => (
+                            {product.color.split(", ").map((color, index) => (
                                 <button
                                     key={index}
                                     onClick={() => setSelectedColor(color)}

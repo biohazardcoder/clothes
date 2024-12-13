@@ -19,7 +19,7 @@ export const CreateNewProduct = async (req, res) => {
       .status(201)
       .json({ message: "Product created successfully", product: newProduct });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, error);
   }
 };
 

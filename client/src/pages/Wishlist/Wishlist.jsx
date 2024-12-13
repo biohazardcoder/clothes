@@ -39,7 +39,7 @@ export default function Wishlist() {
                             <img
                                 src={item.photos[0]}
                                 alt={item.title}
-                                className="w-full object-cover h-[200px] rounded-md"
+                                className="w-full object-cover object-top h-[200px] rounded-md"
                             />
                             <h3 className="font-semibold mt-2">{item.title}</h3>
                             <h2>

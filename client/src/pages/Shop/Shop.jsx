@@ -8,6 +8,8 @@ import Axios from "../../Axios";
 import { TbCategory } from "react-icons/tb";
 import Advantage from "../Advantage/Advantage";
 import { Footer } from "../../components/shared/Footer/Footer";
+import AutoFocus from "../../middlewares/AutoFocus";
+import { FiLayers } from "react-icons/fi";
 
 export const Shop = () => {
     const { data } = useSelector((state) => state.products);
@@ -35,7 +37,28 @@ export const Shop = () => {
         }
     }, [data]);
 
-    const categories = ["All", ...new Set(data.map((product) => product.category))];
+    const categories = [
+        {
+            title: "All",
+            icon: <FiLayers />,
+        },
+        {
+            title: "Men's",
+            icon: <TbCategory />,
+        },
+        {
+            title: "Women's",
+            icon: <FaRegHeart />,
+        },
+        {
+            title: "Kids'",
+            icon: <FaHeart />,
+        },
+        {
+            title: "Accessories",
+            icon: <TbCategory />,
+        },
+    ];
 
     const toggleWishlist = (product) => {
         const isExists = wishlist.find((item) => item._id === product._id);
@@ -61,9 +84,11 @@ export const Shop = () => {
         return matchesCategory && matchesSearch;
     });
 
+
     return (
         <div className="bg-container">
-            <Container className="min-h-screen py-10 px-4">
+            <AutoFocus />
+            <Container className="min-h-screen py-10">
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
                     <input
                         type="text"
@@ -85,26 +110,26 @@ export const Shop = () => {
                     </button>
                 </div>
                 {isModalOpen && (
-                    <div className="fixed inset-0 bg-[black] bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="fixed inset-0 bg-[black] bg-opacity-70 flex items-center justify-center z-50">
                         <div className="bg-[white] rounded-lg p-6 w-3/4 max-w-md">
                             <h3 className="text-lg font-semibold mb-4">Select Category</h3>
                             <ul className="space-y-2">
                                 {categories.map((category) => (
                                     <li
-                                        key={category}
-                                        className={`cursor-pointer p-2 rounded-md ${selectedCategory === category
-                                            ? "bg-highlight text-primary"
-                                            : ""
+                                        key={category.title}
+                                        className={`cursor-pointer p-2 rounded-md flex gap-2 items-center ${selectedCategory === category.title ? "bg-highlight text-primary" : ""
                                             }`}
                                         onClick={() => {
-                                            setSelectedCategory(category);
+                                            setSelectedCategory(category.title);
                                             setIsModalOpen(false);
                                         }}
                                     >
-                                        {category}
+                                        {category.icon}
+                                        {category.title} Clothing
                                     </li>
                                 ))}
                             </ul>
+
                             <button
                                 onClick={() => setIsModalOpen(false)}
                                 className="mt-4 w-full bg-accent text-[#fff] py-2 rounded-lg "
@@ -168,9 +193,9 @@ export const Shop = () => {
                         )}
                     </div>
                 )}
-                <Advantage />
-                <Footer />
             </Container>
+            <Advantage />
+            <Footer />
         </div>
     );
 };

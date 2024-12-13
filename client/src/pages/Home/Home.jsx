@@ -1,4 +1,5 @@
 import { Footer } from "../../components/shared/Footer/Footer";
+import AutoFocus from "../../middlewares/AutoFocus";
 import Advantage from "../Advantage/Advantage";
 import Bestseller from "../Bestseller/Bestseller";
 import Deal from "../Deal/Deal";
@@ -10,6 +11,7 @@ export const Home = () => {
   const isWishlistPage = location.pathname === "/wishlist";
   return (
     <>
+      <AutoFocus />
       <Entry />
       <Bestseller />
       <Deal />

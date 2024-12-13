@@ -14,8 +14,12 @@ export const AddProduct = () => {
     company: "",
     stock: "",
     size: "",
+    sale: "",
+    color: "",
     photos: [],
   });
+  console.log(productData);
+
   const [isEditing, setIsEditing] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
 
@@ -36,7 +40,7 @@ export const AddProduct = () => {
         ...prevData,
         photos: [...prevData.photos, ...data.photos],
       }));
-      setImagePreview(data.photos[0]); // Tanlangan rasm ko'rsatiladi
+      setImagePreview(data.photos[0]);
     } catch (err) {
       console.log(err);
     }
@@ -53,9 +57,11 @@ export const AddProduct = () => {
       const response = await Axios.post("/product/create", {
         title: productData.title,
         price: productData.price,
+        sale: productData.sale,
         category: productData.category,
         company: productData.company,
         stock: productData.stock,
+        color: productData.color,
         size: productData.size,
         photos: productData.photos,
       });
@@ -101,6 +107,15 @@ export const AddProduct = () => {
               required
             />
             <input
+              type="number"
+              name="sale"
+              className={`border border-gray-300 rounded-md p-2 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-highlight focus:border-transparent transition ease-in-out duration-200`}
+              value={productData.sale}
+              onChange={handleInputChange}
+              placeholder="Sale"
+              required
+            />
+            <input
               type="text"
               name="category"
               className={`border border-gray-300 rounded-md p-2 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-highlight focus:border-transparent transition ease-in-out duration-200`}
@@ -108,6 +123,14 @@ export const AddProduct = () => {
               onChange={handleInputChange}
               placeholder="Kategoriya"
               required
+            />
+            <input
+              type="text"
+              name="color"
+              className={`border border-gray-300 rounded-md p-2 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-highlight focus:border-transparent transition ease-in-out duration-200`}
+              value={productData.color}
+              onChange={handleInputChange}
+              placeholder="Rang"
             />
           </div>
           <div>

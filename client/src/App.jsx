@@ -13,6 +13,7 @@ import Detail from "./pages/Detail/Detail";
 import { Error } from "./pages/Error/Error";
 import { AboutUs } from "./pages/About/About";
 import { Shop } from "./pages/Shop/Shop";
+import { Shoplist } from "./pages/Basket/Basket";
 
 
 function App() {
@@ -59,6 +60,10 @@ function App() {
         {
           path: "/login",
           element: <Login />,
+        },
+        {
+          path: "/shoplist",
+          element: <Shoplist />
         },
         {
           path: "/shop",
