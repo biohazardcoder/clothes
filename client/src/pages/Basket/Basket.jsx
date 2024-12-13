@@ -16,25 +16,19 @@ export const Shoplist = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-  const [orderData, setOrderData] = useState({
+  const updateOrderData = () => ({
     customer: data?._id,
-    products: cart,
+    products: cart.map((item) => ({
+      productId: item.id,
+      quantity: item.quantity,
+      color: item.color, // Include color
+      size: item.size,   // Include size
+      title: item.title,
+    })),
     status: "Pending",
-    orderId: Number(new Date().getTime()),
     totalPrice: calculateTotal(),
-    quantity: cart.length,
   });
 
-  console.log(orderData);
-  useEffect(() => {
-    setOrderData((prevData) => ({
-      ...prevData,
-      customer: data?._id,
-      products: cart,
-      totalPrice: calculateTotal(),
-      quantity: cart.length,
-    }));
-  }, [cart, data]);
 
   useEffect(() => {
     localStorage.setItem("shopList", JSON.stringify(cart));
@@ -57,7 +51,7 @@ export const Shoplist = () => {
           action === "increment" ? item.quantity + 1 : item.quantity - 1;
         return {
           ...item,
-          quantity: Math.max(newQuantity, 0), // Minimal qiymat 0 bo'ladi
+          quantity: Math.max(newQuantity, 1),
         };
       }
       return item;
@@ -67,9 +61,10 @@ export const Shoplist = () => {
 
   const handleCheckout = async () => {
     try {
-      const response = (await Axios.post("/order/new-order", orderData)).data;
+      const response = await Axios.post("/order/new-order", updateOrderData());
       localStorage.removeItem("shopList");
       setCart([]);
+      alert("Order placed successfully!");
     } catch (err) {
       console.error("Checkout failed:", err.response?.data || err.message);
     }
@@ -77,7 +72,7 @@ export const Shoplist = () => {
 
   if (cart.length === 0) {
     return (
-      <div className="text-center text-white min-h-screen bg-zinc-900 flex items-center justify-center">
+      <div className="text-center text-primary min-h-screen bg-zinc-900 flex items-center justify-center">
         Your basket is empty.
       </div>
     );
@@ -95,7 +90,8 @@ export const Shoplist = () => {
                 <th className="py-4">Product</th>
                 <th>Unit Price</th>
                 <th>Quantity</th>
-                <th>Price</th>
+                <th>Total</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -114,20 +110,20 @@ export const Shoplist = () => {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => handleQuantityChange(index, "decrement")}
-                        className="px-2 py-1 bg-gray-700 text-white rounded"
+                        className="px-2 py-1 bg-gray-700 text-primary rounded"
                       >
                         -
                       </button>
-                      <span>{item.quantity || 0}</span>
+                      <span>{item.quantity}</span>
                       <button
                         onClick={() => handleQuantityChange(index, "increment")}
-                        className="px-2 py-1 bg-gray-700 text-white rounded"
+                        className="px-2 py-1 bg-gray-700 text-primary rounded"
                       >
                         +
                       </button>
                     </div>
                   </td>
-                  <td>{(item.price * (item.quantity || 0)).toLocaleString()} so'm</td>
+                  <td>{(item.price * item.quantity).toLocaleString()} so'm</td>
                   <td>
                     <button
                       onClick={() => handleRemoveItem(index)}
@@ -143,7 +139,7 @@ export const Shoplist = () => {
         </div>
         <div className="mt-8 flex justify-between items-center">
           <button
-            onClick={() => handleCheckout()}
+            onClick={handleCheckout}
             className="text-[#212121] bg-[#8D7966] hover:bg-transparent border border-[#8D7966] hover:text-[#8D7966] px-6 py-3 rounded-md transition-all"
           >
             Checkout

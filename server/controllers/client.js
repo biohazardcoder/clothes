@@ -91,26 +91,23 @@ export const UpdateClient = async (req, res) => {
   const userId = req.params.id;
   const { phoneNumber, firstName, lastName, avatar, password } = req.body;
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const avatarPhoto = avatar ? avatar : generateAvatar(firstName, lastName);
-    const updatedClient = {
-      phoneNumber,
-      lastName,
-      firstName,
-      avatar: avatarPhoto,
-      password: hashedPassword,
-    };
+    let updatedClient = { phoneNumber, firstName, lastName, avatar };
+    if (password) {
+      updatedClient.password = await bcrypt.hash(password, 10);
+    }
+
     const client = await Client.findByIdAndUpdate(userId, updatedClient, {
       new: true,
     });
     if (!client) {
       return sendErrorResponse(res, 409, "Client not found.");
     }
-    return res.status(201).json({ data: client });
+    return res.status(200).json({ data: client });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, error.message);
   }
 };
+
 
 export const DeleteClient = async (req, res) => {
   const { id } = req.params;
@@ -130,11 +127,22 @@ export const DeleteClient = async (req, res) => {
 
 export const GetMe = async (req, res) => {
   try {
-    const foundClient = await Client.findById(req.userInfo.userId);
-    if (!foundClient)
+    const foundClient = await Client.findById(req.userInfo.userId)
+      .populate({
+        path: "orders",
+        populate: {
+          path: "products.productId",
+          model: "Product",
+        },
+      });
+
+    if (!foundClient) {
       return res.status(404).json({ message: "Client not found!" });
+    }
+
     return res.status(200).json({ data: foundClient });
   } catch (error) {
+    console.error("Error fetching client details:", error.message);
     res.status(500).json({ error: error.message });
   }
 };

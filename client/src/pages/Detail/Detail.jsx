@@ -93,6 +93,22 @@ function Detail() {
                             </div>
                         ) : ("")}
                     </div>
+                    <div className="mt-6 flex items-center space-x-6">
+                        <div className="text-3xl font-bold text-primary">
+                            Stock: {product.stock}
+                        </div>
+                        <div>
+                            {product.stock > 0 ? (
+                                <div>
+                                    <h1 className="text-xl font-semibold text-white bg-[#4CAF50] p-2 rounded-md text-center">In Stock</h1>
+                                </div>
+                            ) : (
+                                <div>
+                                    <h1 className="text-xl font-semibold text-white bg-[#FF6347] p-2 rounded-md text-center">Out of Stock</h1>
+                                </div>
+                            )}
+                        </div>
+                    </div>
 
                     <div className="mt-6">
                         <h3 className="text-xl font-semibold text-primary">Choose Size</h3>
@@ -101,7 +117,7 @@ function Detail() {
                                 <button
                                     key={size}
                                     onClick={() => setSelectedSize(size)}
-                                    className={`px-3 py-1 border-2 rounded-lg text-primary font-semibold transition-all duration-300 ${selectedSize === size ? 'bg-[white] text-accent' : ''
+                                    className={`px-3 py-1 border-2 rounded-lg text-primary font-semibold transition-all duration-300 ${selectedSize === size ? 'bg-highlight' : ''
                                         }`}
                                 >
                                     {size}
@@ -116,7 +132,7 @@ function Detail() {
                                 <button
                                     key={index}
                                     onClick={() => setSelectedColor(color)}
-                                    className={`w-12 h-12 rounded-lg border-2 transition-all duration-300 ${selectedColor === color ? 'border-8' : 'border-secontary '
+                                    className={`w-12 h-12 rounded-lg border-2 transition-all duration-300 ${selectedColor === color ? 'border-8 border-highlight' : 'border-secontary '
                                         }`}
                                     style={{ backgroundColor: color }}
                                 />
@@ -124,20 +140,24 @@ function Detail() {
                         </div>
                     </div>
 
-                    <div className="mt-8">
-                        <Button
-                            onClick={saveToLocalStorage}
-                            className="w-full py-3 font-semibold text-[white] bg-highlight rounded-lg hover:bg-accent transition-all duration-300"
-                        >
-                            Add to Cart
-                        </Button>
-                    </div>
+                    {
+                        product.stock > 0 ? (
+                            <div className="mt-8">
+                                <Button
+                                    onClick={saveToLocalStorage}
+                                    className="w-full py-3 font-semibold text-[white] bg-highlight rounded-lg hover:bg-accent transition-all duration-300"
+                                >
+                                    Add to Cart
+                                </Button>
+                            </div>
+                        ) : ("")
+                    }
                 </div>
-            </Container>
+            </Container >
             <div className='mt-14'>
                 <Footer />
             </div>
-        </div>
+        </div >
     );
 }
 

@@ -13,6 +13,6 @@ const router = exress.Router();
 router.get("/", isExisted, IsAdmin, AllOrders);
 router.get("/:id", isExisted, IsAdmin, GetOneOrder);
 router.post("/new-order", isExisted, NewOrder);
-router.delete("/:id", isExisted, IsAdmin, CancelOrder);
+router.delete("/:id", isExisted, CancelOrder);
 
 export default router;

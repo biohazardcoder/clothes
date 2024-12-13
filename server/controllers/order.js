@@ -28,65 +28,55 @@ export const GetOneOrder = async (req, res) => {
 
 export const NewOrder = async (req, res) => {
   try {
-    const { customer, products, quantity, status } = req.body;
+    const { customer, products, status } = req.body;
 
-    // Check for missing fields
-    if (!customer || !products || !quantity || !status) {
-      return sendErrorResponse(res, 400, "All fields are required!");
-    }
-
-    // Check if products and quantity arrays have the same length
-    if (products.length !== quantity.length) {
-      return sendErrorResponse(res, 400, "Products and quantity arrays must have the same length!");
-    }
-
-    // Find the client
-    const client = await Client.findById(customer);
-    if (!client) {
-      return sendErrorResponse(res, 404, "Client not found!");
+    if (!customer || !products || !status) {
+      return res.status(400).json({ message: "All fields are required!" });
     }
 
     let totalPrice = 0;
-    const updatedProducts = [];
+    const updatedProducts = await Promise.all(
+      products.map(async ({ productId, quantity, color, size }) => {
+        const product = await Product.findById(productId);
+        if (!product) {
+          throw new Error(`Product not found with id: ${productId}`);
+        }
 
-    // Process each product
-    for (let i = 0; i < products.length; i++) {
-      const product = await Product.findById(products[i]);
-      if (!product) {
-        return sendErrorResponse(res, 404, `Product not found with id: ${products[i]}`);
-      }
+        if (product.stock < quantity) {
+          throw new Error(`Not enough stock for product: ${product.title}`);
+        }
 
-      // Check if stock is sufficient
-      if (product.stock < quantity[i]) {
-        return sendErrorResponse(res, 400, `Not enough stock for product: ${product.title}`);
-      }
+        product.stock -= quantity;
+        await product.save();
 
-      // Update stock and calculate price
-      product.stock -= quantity[i];
-      await product.save();
+        totalPrice += product.price * quantity;
 
-      totalPrice += product.price * quantity[i];
+        return {
+          productId: product._id,
+          quantity,
+          color: color || 'Default Color',
+          size: size || 'Default Size',
+          title: product.title,
+        };
 
-      // Store product with quantity
-      updatedProducts.push({
-        productId: product._id,
-        quantity: quantity[i]
-      });
-    }
+      })
+    );
 
-    // Create new order
     const newOrder = new Order({
       customer,
-      products: updatedProducts, // Products should now contain { productId, quantity }
+      products: updatedProducts,
       status,
-      totalPrice: totalPrice.toFixed(2), // Ensure two decimal places
+      totalPrice,
     });
 
-    // Save the order
     const savedOrder = await newOrder.save();
 
-    // Optionally add the ordered products to client's products
-    client.products.push(...updatedProducts.map(item => item.productId));
+    const client = await Client.findById(customer);
+    if (!client) {
+      return res.status(404).json({ message: "Client not found!" });
+    }
+
+    client.orders.push(savedOrder._id);
     await client.save();
 
     res.status(201).json({
@@ -94,11 +84,10 @@ export const NewOrder = async (req, res) => {
       order: savedOrder,
     });
   } catch (error) {
-    console.error(error); // Log the error for debugging
-    sendErrorResponse(res, 500, "Server error!");
+    console.error("Error creating order:", error.message);
+    res.status(500).json({ message: error.message });
   }
 };
-
 
 
 

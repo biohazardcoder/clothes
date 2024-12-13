@@ -7,10 +7,10 @@ const Client = new mongoose.Schema({
   password: { type: String, required: true },
   address: { type: String, required: true },
   avatar: { type: String },
-  products: [
+  orders: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
+      ref: "Order",
     },
   ],
 });
