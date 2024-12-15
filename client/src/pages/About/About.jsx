@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import { Container } from "../../components/shared/Container/Container";
 import { Footer } from "../../components/shared/Footer/Footer";
+import AutoFocus from "../../middlewares/AutoFocus";
 
 export const AboutUs = () => {
     return (
         <div className="bg-container min-h-screen w-full">
+            <AutoFocus />
             <Container>
                 <main className="max-w-4xl mx-auto  py-20  px-4 text-primary">
                     <section className="text-center mb-8">

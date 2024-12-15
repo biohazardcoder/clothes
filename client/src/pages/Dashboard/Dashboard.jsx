@@ -4,6 +4,7 @@ import { FaUser, FaPhone, FaLocationArrow } from "react-icons/fa";
 import Cookies from "js-cookie";
 import Axios from "../../Axios";
 import { Link } from "react-router-dom";
+import AutoFocus from "../../middlewares/AutoFocus";
 
 function Dashboard() {
     const { data, isAuth } = useSelector((state) => state.user);
@@ -49,6 +50,7 @@ function Dashboard() {
 
     return (
         <div className="h-screen bg-container text-mainText py-20">
+            <AutoFocus />
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center p-2 gap-2">

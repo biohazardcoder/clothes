@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaEye, FaHeartBroken } from "react-icons/fa";
 import Advantage from "../Advantage/Advantage";
 import { Footer } from "../../components/shared/Footer/Footer";
+import AutoFocus from "../../middlewares/AutoFocus";
 
 export default function Wishlist() {
     const [wishlist, setWishlist] = useState(
@@ -31,6 +32,7 @@ export default function Wishlist() {
 
     return (
         <div className="bg-container text-[white] py-10 ">
+            <AutoFocus />
             <div className="container mx-auto">
                 <h1 className="text-3xl font-bold mb-8">Your Wishlist</h1>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -5,6 +5,7 @@ import { Container } from '../../components/shared/Container/Container';
 import Button from '../../components/ui/Button';
 import Advantage from '../Advantage/Advantage';
 import { Footer } from '../../components/shared/Footer/Footer';
+import AutoFocus from '../../middlewares/AutoFocus';
 
 function Detail() {
     const { id } = useParams();
@@ -65,6 +66,7 @@ function Detail() {
 
     return (
         <div className="bg-container  text-primary pt-10">
+            <AutoFocus />
             <Container className="grid  grid-cols-1 lg:grid-cols-3 ">
                 <div className="flex relative justify-center col-span-1 items-center px-0 md:px-4 rounded-2xl shadow-xl ">
                     <img
