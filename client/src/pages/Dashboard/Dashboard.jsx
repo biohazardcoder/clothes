@@ -83,27 +83,24 @@ function Dashboard() {
                             className="w-full bg-[indigo] text-[white] py-2 rounded-md hover:bg-indigo-500 transition duration-300 mt-4">
                             Edit Account
                         </button>
-                    </div>
-
-                    <div className="bg-[white] p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300 ease-in-out">
-                        <h2 className="text-2xl font-semibold text-gray-700 mb-4">Account Settings</h2>
                         <button
                             onClick={Logout}
-                            className="w-full bg-[red] text-[white] py-2 rounded-md hover:bg-red-500 transition duration-300">
+                            className="w-full mt-2 bg-[red] text-[white] py-2 rounded-md hover:bg-red-500 transition duration-300">
                             Logout
                         </button>
                     </div>
 
-                    <div className="bg-[white] p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300 ease-in-out">
+
+                    <div className="bg-[white] col-span-2 p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition duration-300 ease-in-out">
                         <h2 className="text-2xl font-semibold text-gray-700 mb-4">Orders</h2>
                         {data.orders && data.orders.length > 0 ? (
-                            <ul className="space-y-4">
+                            <ul className="space-y-4 ">
                                 {data.orders.map((order) => (
                                     <li
                                         key={order._id}
                                         className="bg- p-4 rounded-md shadow-sm border "
                                     >
-                                        <ul className="mt-2 space-y-2 text-sm">
+                                        <ul className="mt-2 grid grid-cols-1 md:grid-cols-2 space-y-2  text-sm">
                                             {order.products.map(({ productId, quantity, title, color, size }) => (
                                                 <div
                                                     key={productId._id}
@@ -113,7 +110,7 @@ function Dashboard() {
                                                         <img
                                                             src={productId.photos[0]}
                                                             alt={productId.title}
-                                                            className="w-16 h-16 object-center object-cover rounded-md border border-highlight"
+                                                            className="w-16 h-16 object-top object-cover rounded-md border border-highlight"
                                                         />
                                                     </Link>
 
