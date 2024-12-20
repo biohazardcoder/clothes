@@ -51,7 +51,7 @@ function Bestseller() {
     return (
         <section className="py-20 bg-container" id="watches">
             <Container>
-                <h1 className="mb-10 text-[white] text-3xl">Our Bestseller</h1>
+                <h1 className="mb-10 text-[white] text-3xl">Bizning Bestsellerimiz</h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {randomProducts.map((product) => (
                         <div key={product._id} className="text-[white] bg-[#333] rounded-lg p-4">
@@ -63,7 +63,7 @@ function Bestseller() {
                                 />
                                 {
                                     product.sale > 0 ? (<div className="absolute py-1 px-2 text-sm bg-meteor text-[white] top-5 left-5">
-                                        SALE
+                                        Chegirma
                                     </div>
                                     ) :
                                         ("")

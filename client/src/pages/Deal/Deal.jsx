@@ -4,7 +4,6 @@ import Button from "../../components/ui/Button";
 
 const Deal = () => {
     const [timeLeft, setTimeLeft] = useState(() => {
-        // LocalStorage'dan vaqtni olish
         const savedTime = localStorage.getItem("dealEndTime");
         const currentTime = Date.now();
 
@@ -18,7 +17,7 @@ const Deal = () => {
             };
         }
 
-        const newEndTime = currentTime + 30 * 24 * 60 * 60 * 1000; // 30 kun
+        const newEndTime = currentTime + 30 * 24 * 60 * 60 * 1000;
         localStorage.setItem("dealEndTime", newEndTime);
         return { days: 30, hours: 0, minutes: 0, seconds: 0 };
     });
@@ -65,23 +64,22 @@ const Deal = () => {
             <div>
                 <img
                     src={DealImg}
-                    alt="Model with hat"
+                    alt="Shlyapali model"
                     className="rounded-lg m-auto shadow-md h-[300px]"
                 />
             </div>
             <div className="p-8 bgre md:w-1/2">
-                <h1 className="text-4xl font-bold text-[#fff] mb-4">Deals of the Month</h1>
+                <h1 className="text-4xl font-bold text-[#fff] mb-4">Eng Yaxshi Takliflari</h1>
                 <p className="text-secontary mb-6">
-                    It is a long established fact that a reader will be distracted by the readable content
-                    of a page when looking at its layout. The point of using Lorem Ipsum is that it has
-                    a more-or-less normal distribution of letters.
+                    O'qish oson matn mazmuniga chalg'ituvchi bo'lishi ma'lum. Lorem Ipsum ishlatilishining sababi
+                    shundaki, u odatdagidan ko'ra ko'proq harflar taqsimotiga ega.
                 </p>
                 <div className="flex gap-4 mb-6">
                     {[
-                        { label: "Days", value: timeLeft.days },
-                        { label: "Hours", value: timeLeft.hours },
-                        { label: "Mins", value: timeLeft.minutes },
-                        { label: "Secs", value: timeLeft.seconds },
+                        { label: "Kunlar", value: timeLeft.days },
+                        { label: "Soatlar", value: timeLeft.hours },
+                        { label: "Daqiqalar", value: timeLeft.minutes },
+                        { label: "Soniyalar", value: timeLeft.seconds },
                     ].map((item, index) => (
                         <div
                             key={index}
@@ -92,7 +90,7 @@ const Deal = () => {
                         </div>
                     ))}
                 </div>
-                <Button className="px-6 py-3">View All Products →</Button>
+                <Button to={"./shop"} className="px-6 py-3">Barcha Mahsulotlarni Ko'rish →</Button>
             </div>
         </div>
     );

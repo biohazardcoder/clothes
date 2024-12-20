@@ -7,7 +7,7 @@ import FourthImg from "./fourthImg.jpg"
 const Instagram = () => {
     return (
         <div className="flex flex-col min-h-[50vh] items-center justify-center bg-container text-[white] p-6">
-            <h1 className="text-3xl font-semibold  mb-8">Our Instagram Stories</h1>
+            <h1 className="text-3xl font-semibold  mb-8">Instagram Hikoyalarimiz</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
                     FirstImg,

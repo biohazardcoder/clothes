@@ -15,59 +15,50 @@ export const Shop = () => {
     const { data } = useSelector((state) => state.products);
     const [isLoading, setIsLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
-    const [selectedCategory, setSelectedCategory] = useState("All");
-    const [wishlist, setWishlist] = useState(
-        JSON.parse(localStorage.getItem("wishlist")) || []
-    );
+    const [selectedCategory, setSelectedCategory] = useState("Barcha");
+    const [wishlist, setWishlist] = useState(() => {
+        const savedWishlist = localStorage.getItem("wishlist");
+        return savedWishlist ? JSON.parse(savedWishlist) : [];
+    });
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     useEffect(() => {
         Axios.get("product")
             .then((response) => {
                 dispatch(getProductSuccess(response.data.data));
+                setIsLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching products:", error);
+                setIsLoading(false);
             });
     }, [dispatch]);
 
-    useEffect(() => {
-        if (data.length > 0) {
-            setIsLoading(false);
-        }
-    }, [data]);
-
     const categories = [
         {
-            title: "All",
+            title: "Barcha",
             icon: <FiLayers />,
         },
         {
-            title: "Men's",
-            icon: <TbCategory />,
+            title: "Erkaklar",
         },
         {
-            title: "Women's",
-            icon: <FaRegHeart />,
+            title: "Ayollar",
         },
         {
-            title: "Kids'",
-            icon: <FaHeart />,
+            title: "Bolalar",
         },
         {
-            title: "Accessories",
-            icon: <TbCategory />,
+            title: "Aksessuarlar",
         },
     ];
 
     const toggleWishlist = (product) => {
-        const isExists = wishlist.find((item) => item._id === product._id);
-        let updatedWishlist;
-        if (isExists) {
-            updatedWishlist = wishlist.filter((item) => item._id !== product._id);
-        } else {
-            updatedWishlist = [...wishlist, product];
-        }
+        const isExists = wishlist.some((item) => item._id === product._id);
+        const updatedWishlist = isExists
+            ? wishlist.filter((item) => item._id !== product._id)
+            : [...wishlist, product];
         setWishlist(updatedWishlist);
         localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
     };
@@ -77,13 +68,13 @@ export const Shop = () => {
 
     const filteredProducts = data.filter((product) => {
         const matchesCategory =
-            selectedCategory === "All" || product.category === selectedCategory;
+            selectedCategory === "Barcha" ||
+            (product.category && product.category.toLowerCase() === selectedCategory.toLowerCase());
         const matchesSearch = product.title
             .toLowerCase()
             .includes(searchQuery.toLowerCase());
         return matchesCategory && matchesSearch;
     });
-
 
     return (
         <div className="bg-container">
@@ -92,7 +83,7 @@ export const Shop = () => {
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
                     <input
                         type="text"
-                        placeholder="Search products..."
+                        placeholder="Mahsulotlarni qidirish..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className={`
@@ -100,7 +91,6 @@ export const Shop = () => {
                             ${isLoading ? "opacity-50 cursor-not-allowed" : ""}
                         `}
                         disabled={isLoading}
-
                     />
                     <button
                         onClick={() => setIsModalOpen(true)}
@@ -112,29 +102,28 @@ export const Shop = () => {
                 {isModalOpen && (
                     <div className="fixed inset-0 bg-[black] bg-opacity-70 flex items-center justify-center z-50">
                         <div className="bg-[white] rounded-lg p-6 w-3/4 max-w-md">
-                            <h3 className="text-lg font-semibold mb-4">Select Category</h3>
+                            <h3 className="text-lg font-semibold mb-4">Kategoriyani tanlang</h3>
                             <ul className="space-y-2">
                                 {categories.map((category) => (
                                     <li
                                         key={category.title}
-                                        className={`cursor-pointer p-2 rounded-md flex gap-2 items-center ${selectedCategory === category.title ? "bg-highlight text-primary" : ""
-                                            }`}
+                                        className={`cursor-pointer p-2 rounded-md flex gap-2 items-center ${selectedCategory === category.title ? "bg-highlight text-primary" : ""}`}
                                         onClick={() => {
                                             setSelectedCategory(category.title);
                                             setIsModalOpen(false);
                                         }}
                                     >
-                                        {category.icon}
-                                        {category.title} Clothing
+                                        {category.icon && <span>{category.icon}</span>}
+                                        {category.title} Kiyimi
                                     </li>
                                 ))}
                             </ul>
 
                             <button
                                 onClick={() => setIsModalOpen(false)}
-                                className="mt-4 w-full bg-accent text-[#fff] py-2 rounded-lg "
+                                className="mt-4 w-full bg-accent text-[#fff] py-2 rounded-lg"
                             >
-                                Close
+                                Yopish
                             </button>
                         </div>
                     </div>
@@ -180,16 +169,13 @@ export const Shop = () => {
                                         </figure>
                                         <h3 className="font-semibold mt-2">{product.title}</h3>
                                         <h2 className="mt-1 text-sm">
-                                            Narxi:{" "}
-                                            <span className="text-lg font-bold text-[white]">
-                                                {new Intl.NumberFormat("uz-UZ").format(product.price)} so'm
-                                            </span>
+                                            Narxi: <span className="text-lg font-bold text-[white]">{new Intl.NumberFormat("uz-UZ").format(product.price)} so'm</span>
                                         </h2>
                                     </div>
                                 </div>
                             ))
                         ) : (
-                            <p className="text-gray-500 col-span-full text-center text-[white]">No products found.</p>
+                            <p className="text-gray-500 col-span-full text-center text-[white]">Hech qanday mahsulot topilmadi.</p>
                         )}
                     </div>
                 )}

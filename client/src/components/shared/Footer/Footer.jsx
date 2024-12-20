@@ -1,7 +1,32 @@
 import React from "react";
 import { FaEnvelope, FaLocationArrow, FaPhoneAlt } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
+
+
 
 export const Footer = () => {
+  const { isAuth } = useSelector(state => state.user)
+  console.log(isAuth);
+
+  const infoLinks = [
+    { title: "Barcha mahsulotlar", url: "/shop" },
+    isAuth
+      ? { title: "Profil", url: "/profile" }
+      : { title: "Kirish", url: "/login" }, ,
+    { title: "Mening savatim", url: "/wishlist" },
+    { title: "Mening istaklar ro'yxatim", url: isAuth ? "/shoplist" : "/login" },
+    { title: "Aloqa", url: "/contact" },
+  ];
+
+  const serviceLinks = [
+    { title: "Biz haqimizda", url: "/about" },
+    { title: "Karyeralar", url: "#" },
+    { title: "Yetkazib berish ma'lumotlari", url: "#" },
+    { title: "Maxfiylik siyosati", url: "#" },
+    { title: "Shartlar va qoidalar", url: "#" },
+  ];
   return (
     <footer className="bg-meteor text-[#fff] py-6 px-4 font-sans text-sm">
       <div className="container mx-auto flex flex-wrap justify-between gap-6">
@@ -17,41 +42,41 @@ export const Footer = () => {
           </p>
           <p className="flex items-center gap-2">
             <FaLocationArrow />
-            3891 Ranchview Dr. Richardson, California 62639
+            3891 Ranchview Dr. Richardson, Kaliforniya 62639
           </p>
         </div>
 
         <div className="w-full sm:w-auto">
-          <h4 className="text-lg font-semibold mb-3">Information</h4>
+          <h4 className="text-lg font-semibold mb-3">Ma'lumotlar</h4>
           <ul className="space-y-2">
-            <li className="hover:underline cursor-pointer">My Account</li>
-            <li className="hover:underline cursor-pointer">Login</li>
-            <li className="hover:underline cursor-pointer">My Cart</li>
-            <li className="hover:underline cursor-pointer">My Wishlist</li>
-            <li className="hover:underline cursor-pointer">Checkout</li>
+            {infoLinks.map((link, index) => (
+              <li key={index} className="hover:underline cursor-pointer">
+                <Link to={link.url}>{link.title}</Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         <div className="w-full sm:w-auto">
-          <h4 className="text-lg font-semibold mb-3">Service</h4>
+          <h4 className="text-lg font-semibold mb-3">Xizmatlar</h4>
           <ul className="space-y-2">
-            <li className="hover:underline cursor-pointer">About Us</li>
-            <li className="hover:underline cursor-pointer">Careers</li>
-            <li className="hover:underline cursor-pointer">Delivery Information</li>
-            <li className="hover:underline cursor-pointer">Privacy Policy</li>
-            <li className="hover:underline cursor-pointer">Terms & Conditions</li>
+            {serviceLinks.map((link, index) => (
+              <li key={index} className="hover:underline cursor-pointer">
+                <Link to={link.url}>{link.title}</Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         <div className="w-full sm:w-auto">
-          <h4 className="text-lg font-semibold mb-3">Subscribe</h4>
+          <h4 className="text-lg font-semibold mb-3">Obuna bo'ling</h4>
           <p className="mb-3">
-            Enter your email below to be the first to know about new collections and product launches.
+            Quyida elektron pochta manzilingizni kiriting va yangi kolleksiyalar va mahsulot chiqishlari haqida birinchi bo'lib xabar toping.
           </p>
           <form className="flex flex-col sm:flex-row ">
             <input
               type="email"
-              placeholder="Your Email"
+              placeholder="Sizning emailingiz"
               className="p-2  text-[#000] flex-grow border-none outline-none"
               maxLength={30}
             />
@@ -59,24 +84,24 @@ export const Footer = () => {
               type="submit"
               className="p-3 bg-highlight text-[#fff] "
             >
-              Submit
+              Yuborish
             </button>
           </form>
         </div>
       </div>
 
       <div className="mt-6 border-t p-4 border-gray-700 pt-4 flex flex-col sm:flex-row sm:justify-between items-center text-xs text-center sm:text-left">
-        <p className="mb-2 sm:mb-0">©2025 Eldorado All Rights are reserved</p>
+        <p className="mb-2 sm:mb-0">©2025 Eldorado Barcha huquqlar himoyalangan</p>
         <div className="flex flex-wrap justify-center sm:justify-start space-x-3 mb-2 sm:mb-0">
-          <span className="cursor-pointer hover:underline">Visa</span>
-          <span className="cursor-pointer hover:underline">MasterCard</span>
-          <span className="cursor-pointer hover:underline">Google Pay</span>
-          <span className="cursor-pointer hover:underline">PayPal</span>
+          <span className="cursor-pointer ">UzCard</span>
+          <span className="cursor-pointer ">Humo</span>
+          <span className="cursor-pointer ">Visa</span>
+          <span className="cursor-pointer ">MasterCard</span>
         </div>
         <div className="flex flex-wrap justify-center sm:justify-start space-x-3">
-          <span className="cursor-pointer hover:underline">Facebook</span>
-          <span className="cursor-pointer hover:underline">Instagram</span>
-          <span className="cursor-pointer hover:underline">Twitter</span>
+          <a href="#" className="cursor-pointer hover:underline">Telegram</a>
+          <a href="#" className="cursor-pointer hover:underline">Instagram</a>
+          <a href="#" className="cursor-pointer hover:underline">YouTube</a>
         </div>
       </div>
     </footer>

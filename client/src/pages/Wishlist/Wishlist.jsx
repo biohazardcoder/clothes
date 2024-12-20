@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEye, FaHeartBroken } from "react-icons/fa";
@@ -18,11 +19,11 @@ export default function Wishlist() {
 
     if (wishlist.length === 0) {
         return (
-            <div className="min-h-screen h-screen bg-container text-[white] px-4">
+            <div className=" bg-container text-[white] p-20">
                 <div className="container flex h-full justify-center items-center mx-auto">
                     <div className="flex flex-col items-center gap-4">
                         <div className="text-center text-[white] text-4xl">
-                            Your wishlist is empty. 😔
+                            Istaklaringiz roʻyxati boʻsh. 😔
                         </div>
                     </div>
                 </div>
@@ -34,7 +35,7 @@ export default function Wishlist() {
         <div className="bg-container text-[white] py-10 ">
             <AutoFocus />
             <div className="container mx-auto">
-                <h1 className="text-3xl font-bold mb-8">Your Wishlist</h1>
+                <h1 className="text-3xl font-bold mb-8">Sizning istaklaringiz:</h1>
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                     {wishlist.map((item) => (
                         <div key={item._id} className="bg-[#333] relative rounded-lg p-4 text-[white]">

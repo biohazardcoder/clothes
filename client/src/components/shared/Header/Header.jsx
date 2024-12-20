@@ -14,10 +14,10 @@ export const Header = () => {
   const { isAuth } = useSelector((state) => state.user);
 
   const LiData = [
-    { title: "Home", url: "/" },
-    { title: "Shop", url: "/shop" },
-    { title: "Contact", url: "/contact" },
-    { title: "About", url: "/about" },
+    { title: "Bosh saxifa", url: "/" },
+    { title: "Mahsulotlar", url: "/shop" },
+    { title: "Aloqa", url: "/contact" },
+    { title: "Biz haqimizda", url: "/about" },
   ];
 
   const toggleNav = () => {
@@ -57,7 +57,7 @@ export const Header = () => {
               to="/login"
             >
               <User weight="bold" className="w-5 h-5" />
-              <span>Login</span>
+              <span>Kirish</span>
             </Button>
           ) : (
             <div className="flex gap-3 items-center">
@@ -118,7 +118,7 @@ export const Header = () => {
                   className="hover:text-[#FF7F50] transition-colors duration-200 block py-2"
                   onClick={() => setNavActive(false)}
                 >
-                  Wishlist
+                  Istaklar ro'yxati
                 </Link>
               </li>
               <li>
@@ -127,7 +127,8 @@ export const Header = () => {
                   className="hover:text-[#FF7F50] transition-colors duration-200 block py-2"
                   onClick={() => setNavActive(false)}
                 >
-                  Shopping Cart
+
+                  Xarid savati
                 </Link>
               </li>
             </>

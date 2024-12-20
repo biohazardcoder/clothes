@@ -30,40 +30,37 @@ export const Login = () => {
       Cookies.set("token", data.token, { secure: true, expires: 7 });
       window.location.href = "/";
     } catch (err) {
-      console.log(err.response?.data.message || "Login failed");
+      console.log(err.response?.data.message || "Kirishda xatolik yuz berdi");
     }
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-container p-4">
+    <section className="max-h-screen flex items-center justify-center  p-4">
       <div className="w-full max-w-xl ">
-        <div className="bg-[white] rounded-2xl shadow-xl overflow-hidden">
+        <div className="bg-[white] shadow-xl overflow-hidden">
           <div
-            className="h-48 bg-cover bg-center md:hidden"
+            className="h-48 bg-cover object-top md:hidden"
             style={{ backgroundImage: `url(${LoginImg})` }}
           ></div>
-          <div className="md:flex">
-            <div className="hidden md:block md:w-1/2">
+          <div className="md:flex ">
+            <div className="hidden md:block  md:w-1/2">
               <img
                 src={LoginImg}
-                alt="Login"
-                className="object-cover w-full h-full"
+                alt="Kirish"
+                className="object-cover object-top w-full h-full"
               />
             </div>
             <div className="p-8 md:w-1/2">
               <h2 className="text-2xl font-bold text-mainText mb-4">
-                Welcome!
+                Xush kelibsiz!
               </h2>
-              <p className="text-sidebarText mb-6">
-                Please login to your account
-              </p>
               <form onSubmit={handleLogin} className="space-y-6">
                 <div>
                   <label
                     htmlFor="phone"
                     className="block text-sm font-medium text-mainText mb-1"
                   >
-                    Phone Number
+                    Telefon raqami
                   </label>
                   <div className="flex rounded-md shadow-sm">
                     <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-hoverBg bg-productBg text-sidebarText text-sm">
@@ -75,7 +72,7 @@ export const Login = () => {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md  border"
-                      placeholder="Phone number"
+                      placeholder="Telefon raqamingiz"
                     />
                   </div>
                 </div>
@@ -84,7 +81,7 @@ export const Login = () => {
                     htmlFor="password"
                     className="block text-sm font-medium text-mainText mb-1"
                   >
-                    Password
+                    Parol
                   </label>
                   <div className="relative rounded-md shadow-sm">
                     <input
@@ -93,7 +90,7 @@ export const Login = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border"
-                      placeholder="Enter password"
+                      placeholder="Parolni kiriting"
                     />
                     <div
                       className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
@@ -112,17 +109,17 @@ export const Login = () => {
                     type="submit"
                     className="w-full flex justify-center py-2 px-4 border text-[white] rounded-md shadow-sm text-sm font-medium text-highlightText bg-highlight hover:bg-container transition-colors duration-300"
                   >
-                    Login
+                    Kirish
                   </button>
                 </div>
               </form>
               <p className="mt-4 text-center text-sm text-sidebarText">
-                Don't have an account?{" "}
+                Hisobingiz yo'qmi? {" "}
                 <Link
                   to="/register"
                   className="font-medium text-meteor underline hover:text-highlightText"
                 >
-                  Register here
+                  Ro'yxatdan o'ting
                 </Link>
               </p>
             </div>

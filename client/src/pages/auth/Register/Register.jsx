@@ -36,19 +36,18 @@ export const Register = () => {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-container p-4">
-      <div className="w-full max-w-4xl bg-[white] rounded-2xl shadow-xl overflow-hidden">
+    <section className="flex items-center justify-center bg-container p-4">
+      <div className="w-full max-w-4xl bg-[white]  shadow-xl overflow-hidden">
         <div className="md:flex">
           <div className="md:w-1/2 relative">
             <img
               src={RegisterImg}
               alt="Register"
-              className="w-full h-48 md:h-full object-cover"
+              className="w-full h-48 md:h-full object-cover object-top"
             />
           </div>
           <div className="md:w-1/2 p-8">
-            <h1 className="text-2xl font-bold text-mainText mb-2">Register</h1>
-            <p className="text-sidebarText mb-6">Create your account here:</p>
+            <h1 className="text-2xl font-bold text-mainText mb-2">Ro'yxatdan o'tish</h1>
             {message && (
               <p
                 className={`text-center text-sm mb-4 ${message === "Registration successful!"
@@ -65,7 +64,7 @@ export const Register = () => {
                   htmlFor="phoneNumber"
                   className="block text-sm font-medium text-mainText mb-1"
                 >
-                  Phone Number
+                  Telefon raqamingiz
                 </label>
                 <div className="flex rounded-md shadow-sm">
                   <span className="inline-flex items-center px-3 rounded-l-md border border-r-0 border-hoverBg bg-productBg text-sidebarText text-sm">
@@ -75,7 +74,7 @@ export const Register = () => {
                     type="tel"
                     id="phoneNumber"
                     name="phoneNumber"
-                    className="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-2 focus:ring-highlight focus:border-highlight text-sm border-hoverBg bg-productBg text-mainText"
+                    className="flex-1 min-w-0 block w-full border px-3 py-2 rounded-none rounded-r-md  text-sm border-hoverBg"
                     placeholder="Phone number"
                     value={formData.phoneNumber}
                     onChange={handleInputChange}
@@ -87,13 +86,13 @@ export const Register = () => {
                   htmlFor="firstName"
                   className="block text-sm font-medium text-mainText mb-1"
                 >
-                  First Name
+                  Ismingiz
                 </label>
                 <input
                   type="text"
                   id="firstName"
                   name="firstName"
-                  className="block w-full px-3 py-2 border border-hoverBg rounded-md focus:ring-2 focus:ring-highlight focus:border-highlight text-sm bg-productBg text-mainText"
+                  className="block w-full px-3 py-2 border border-hoverBg rounded-md  text-sm"
                   placeholder="First name"
                   value={formData.firstName}
                   onChange={handleInputChange}
@@ -104,13 +103,13 @@ export const Register = () => {
                   htmlFor="lastName"
                   className="block text-sm font-medium text-mainText mb-1"
                 >
-                  Last Name
+                  Familiyangiz
                 </label>
                 <input
                   type="text"
                   id="lastName"
                   name="lastName"
-                  className="block w-full px-3 py-2 border border-hoverBg rounded-md focus:ring-2 focus:ring-highlight focus:border-highlight text-sm bg-productBg text-mainText"
+                  className="block w-full px-3 py-2 border border-hoverBg rounded-md  text-sm"
                   placeholder="Last name"
                   value={formData.lastName}
                   onChange={handleInputChange}
@@ -121,14 +120,14 @@ export const Register = () => {
                   htmlFor="password"
                   className="block text-sm font-medium text-mainText mb-1"
                 >
-                  Password
+                  Parolingiz
                 </label>
                 <div className="relative rounded-md shadow-sm">
                   <input
                     type={isPasswordVisible ? "text" : "password"}
                     id="password"
                     name="password"
-                    className="block w-full px-3 py-2 border border-hoverBg rounded-md focus:ring-2 focus:ring-highlight focus:border-highlight text-sm bg-productBg text-mainText pr-10"
+                    className="block w-full px-3 py-2 border border-hoverBg rounded-md  text-sm pr-10"
                     placeholder="Enter password"
                     value={formData.password}
                     onChange={handleInputChange}
@@ -150,13 +149,13 @@ export const Register = () => {
                   htmlFor="address"
                   className="block text-sm font-medium text-mainText mb-1"
                 >
-                  Address
+                  Manzilingiz
                 </label>
                 <input
                   type="text"
                   id="address"
                   name="address"
-                  className="block w-full px-3 py-2 border border-hoverBg rounded-md focus:ring-2 focus:ring-highlight focus:border-highlight text-sm bg-productBg text-mainText"
+                  className="block w-full px-3 py-2 border border-hoverBg rounded-md  text-sm"
                   placeholder="Address"
                   value={formData.address}
                   onChange={handleInputChange}
@@ -164,18 +163,18 @@ export const Register = () => {
               </div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-highlightText bg-highlight hover:bg-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-highlight transition-colors duration-200"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary bg-highlight hover:bg-accent  transition-colors duration-300"
               >
-                Register
+                Yuborish
               </button>
             </form>
             <p className="mt-4 text-center text-sm text-sidebarText">
-              Already have an account?{" "}
+              Hisobingiz bormi?{" "}
               <Link
                 to="/login"
-                className="font-medium text-highlight hover:text-accent"
+                className="font-medium underline text-highlight hover:text-accent"
               >
-                Login here
+                Bu yerdan Kiring!
               </Link>
             </p>
           </div>

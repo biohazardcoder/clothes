@@ -8,18 +8,18 @@ function Advantage() {
     const features = [
         {
             icon: <BsBox2 />,
-            title: 'Free Shipping',
-            description: 'Free shipping for orders above $150',
+            title: 'Bepul yetkazib berish',
+            description: '$150 dan yuqori buyurtmalar uchun bepul yetkazib berish',
         },
         {
             icon: <PiMoney />,
-            title: 'Money Guarantee',
-            description: 'Within 30 days for an exchange',
+            title: 'Pul kafolati',
+            description: 'Almashtirish uchun 7 kun ichida',
         },
         {
             icon: <SlEarphones />,
-            title: 'Online Support',
-            description: '24 hours a day, 7 days a week',
+            title: 'Onlayn yordam',
+            description: 'Soat 9:00 dan 18:00 gacha',
         },
     ];
     return (

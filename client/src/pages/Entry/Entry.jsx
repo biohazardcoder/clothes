@@ -11,15 +11,15 @@ function Entry() {
                         O'zingiz Yoqtirgan Hashamatli Uslubni Kashf Eting.
                     </h1>
                     <p className="text-secontary font-light">
-                        What looked like a small patch of purple grass, above five feet
-                        square, was moving across the sand in their direction. Almost do
-                        am or limits hearts. Resolve parties but why she shewing. She sang
-                        know now how nay cold real case.
+                        Besh futdan yuqori bo'lgan binafsha o'tning kichkina yamog'iga o'xshardi
+                        kvadrat, qum bo'ylab o'z yo'nalishi bo'yicha harakatlanar edi. Deyarli qilaman
+                        am yoki yuraklarni cheklaydi. Partiyalarni hal qiling, lekin nima uchun u ko'rsatmoqda. U kuyladi
+                        Qanday nay sovuq real ish endi bilaman.
                     </p>
                     <Button
                         to="/shop"
                         className="px-6 py-3  ">
-                        View All Products →
+                        Barcha Mahsulotlarni Ko'rish →
                     </Button>
                 </div>
             </Container>
