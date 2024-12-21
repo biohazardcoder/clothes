@@ -17,15 +17,12 @@ export const Footer = () => {
       : { title: "Kirish", url: "/login" }, ,
     { title: "Mening savatim", url: "/wishlist" },
     { title: "Mening istaklar ro'yxatim", url: isAuth ? "/shoplist" : "/login" },
-    { title: "Aloqa", url: "/contact" },
   ];
 
   const serviceLinks = [
     { title: "Biz haqimizda", url: "/about" },
-    { title: "Karyeralar", url: "#" },
+    { title: "Aloqa", url: "/contact" },
     { title: "Yetkazib berish ma'lumotlari", url: "#" },
-    { title: "Maxfiylik siyosati", url: "#" },
-    { title: "Shartlar va qoidalar", url: "#" },
   ];
   return (
     <footer className="bg-meteor text-[#fff] py-6 px-4 font-sans text-sm">

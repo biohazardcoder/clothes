@@ -68,6 +68,14 @@ function Bestseller() {
                                     ) :
                                         ("")
                                 }
+                                {
+                                    product.stock <= 0 ? (
+                                        <div className={`absolute py-1 px-2 text-sm bg-[crimson] text-[white] ${product.sale > 0 ? "top-14" : "top-5"} left-5`}>
+                                            Sotuvda yo'q
+                                        </div>
+                                    ) :
+                                        ("")
+                                }
                                 <button
                                     className="absolute top-5 bg-[white] text-highlight right-5 flex items-center gap-2 p-2 rounded-md transition-colors duration-300"
                                     onClick={() => toggleWishlist(product)}

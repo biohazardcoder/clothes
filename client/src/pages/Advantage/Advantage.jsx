@@ -9,7 +9,7 @@ function Advantage() {
         {
             icon: <BsBox2 />,
             title: 'Bepul yetkazib berish',
-            description: '$150 dan yuqori buyurtmalar uchun bepul yetkazib berish',
+            description: "300 ming so'm dan yuqori buyurtmalar uchun bepul yetkazib berish",
         },
         {
             icon: <PiMoney />,
