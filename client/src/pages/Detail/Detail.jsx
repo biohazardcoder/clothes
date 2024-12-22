@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import Axios from "../../Axios";
 import { Container } from '../../components/shared/Container/Container';
 import Button from '../../components/ui/Button';
-import Advantage from '../Advantage/Advantage';
 import { Footer } from '../../components/shared/Footer/Footer';
 import AutoFocus from '../../middlewares/AutoFocus';
+import { toast, ToastContainer } from 'react-toastify';
 
 function Detail() {
     const { id } = useParams();
@@ -14,7 +14,6 @@ function Detail() {
     const [error, setError] = useState(null);
     const [selectedSize, setSelectedSize] = useState(null);
     const [selectedColor, setSelectedColor] = useState(null);
-    console.log(product);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -23,7 +22,8 @@ function Detail() {
                 setProduct(response.data.data);
                 setLoading(false);
             } catch (error) {
-                setError("Failed to fetch product data");
+                setError(error.message);
+                toast.error("Mahsulot maʼlumotlarini olib boʻlmadi", { autoClose: 2000 })
                 setLoading(false);
             }
         };
@@ -33,7 +33,7 @@ function Detail() {
 
     const saveToLocalStorage = () => {
         if (!selectedSize || !selectedColor) {
-            alert("Please select a size and a color.");
+            toast.warning("Iltimos, o'lcham va rangni tanlang", { autoClose: 2000 });
             return;
         }
 
@@ -51,21 +51,20 @@ function Detail() {
         shopList.push(shopItem);
         localStorage.setItem("shopList", JSON.stringify(shopList));
 
-        alert("Product added to your shopping list!");
+        toast.success("Mahsulot xaridlaringiz ro'yxatiga qo'shildi!", { autoClose: 2000 });
     };
 
     if (loading) {
-        return <div className="text-center py-10 text-lg text-secontary">Loading...</div>;
+        return <div className="text-center py-10 text-lg text-secontary">Kutilmoqda...</div>;
     }
 
     if (error) {
-        return <div className="text-center py-10 text-error">{error}</div>;
+        return <div className="text-center py-10 text-error">Xatolik: {error}</div>;
     }
-    console.log(product.size.split(", "));
-    console.log(product.color.split(", "));
 
     return (
         <div className="bg-container  text-primary pt-10">
+            <ToastContainer closeOnClick limit={2} position="top-left" theme={"dark"} icon pauseOnHover={false} />
             <AutoFocus />
             <Container className="grid  grid-cols-1 lg:grid-cols-3 ">
                 <div className="flex relative justify-center col-span-1 items-center px-0 md:px-4 rounded-2xl shadow-xl ">
@@ -74,46 +73,46 @@ function Detail() {
                         alt={product.title}
                         className="w-full h-full object-contain "
                     />
-                    {product.sale > 0 ? (<div className='absolute py-2 px-2 z-10 bg-highlight top-5 text-[white] right-10'>
-                        Sale
+                    {product.sale > 0 ? (<div className='absolute py-2 px-2 z-10 bg-container top-5 text-[white] right-10'>
+                        Chegirma
                     </div>) : (
                         " ")
                     }
                 </div>
 
                 <div className="col-span-1 md:col-span-2 p-6  rounded-2xl shadow-xl space-y-6">
-                    <h1 className="text-2xl font-bold text-primary"><strong>Title: </strong>{product.title}</h1>
-                    <p className="text-lg text-secontary">{product.company}</p>
+                    <h1 className="text-2xl font-bold text-primary"><strong>Nomi: </strong>{product.title}</h1>
+                    <p className="text-lg text-secontary">Kompaniyasi: {product.company}</p>
 
                     <div className="mt-6 flex items-center space-x-6">
                         <div className="text-3xl font-bold text-primary">
                             {product.price.toLocaleString()} so'm
                         </div>
                         {product.sale > 0 ? (
-                            <div className="text-sm text-secontary line-through mt-2">
+                            <div className="text-lg text-secontary line-through mt-2">
                                 {product.sale.toLocaleString()} so'm
                             </div>
                         ) : ("")}
                     </div>
                     <div className="mt-6 flex items-center space-x-6">
-                        <div className="text-3xl font-bold text-primary">
+                        <div className="text-2xl font-bold text-primary">
                             Stock: {product.stock}
                         </div>
                         <div>
                             {product.stock > 0 ? (
                                 <div>
-                                    <h1 className="text-xl font-semibold text-white bg-[#4CAF50] p-2 rounded-md text-center">In Stock</h1>
+                                    <h1 className="text-xl font-semibold text-white bg-[#4CAF50] p-2 rounded-md text-center">Zaxirada mavjud</h1>
                                 </div>
                             ) : (
                                 <div>
-                                    <h1 className="text-xl font-semibold text-white bg-[#FF6347] p-2 rounded-md text-center">Out of Stock</h1>
+                                    <h1 className="text-xl font-semibold text-white bg-[#FF6347] p-2 rounded-md text-center">Zaxirada mavjud emas</h1>
                                 </div>
                             )}
                         </div>
                     </div>
 
                     <div className="mt-6">
-                        <h3 className="text-xl font-semibold text-primary">Choose Size</h3>
+                        <h3 className="text-xl font-semibold text-primary">O'lchamni tanlang*</h3>
                         <div className="flex gap-6 mt-2">
                             {product.size.split(", ").map((size) => (
                                 <button
@@ -128,7 +127,7 @@ function Detail() {
                         </div>
                     </div>
                     <div className="mt-6">
-                        <h3 className="text-xl font-semibold text-primary">Choose Color</h3>
+                        <h3 className="text-xl font-semibold text-primary">Rangni tanlang*</h3>
                         <div className="flex gap-6 mt-2">
                             {product.color.split(", ").map((color, index) => (
                                 <button
@@ -149,7 +148,7 @@ function Detail() {
                                     onClick={saveToLocalStorage}
                                     className="w-full py-3 font-semibold text-[white] bg-highlight rounded-lg hover:bg-accent transition-all duration-300"
                                 >
-                                    Add to Cart
+                                    Savatga qo'shish
                                 </Button>
                             </div>
                         ) : ("")

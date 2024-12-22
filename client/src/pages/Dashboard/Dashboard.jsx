@@ -15,7 +15,7 @@ function Dashboard() {
     const [phoneNumber, setPhoneNumber] = useState(data.phoneNumber);
     const [address, setAddress] = useState(data.address);
     function Logout() {
-        if (!window.confirm("Are you sure you want to logout")) return;
+        if (!window.confirm("Haqiqatan ham tizimdan chiqmoqchimisiza")) return;
         Cookies.remove("token");
         window.location.href = "/";
     }
@@ -26,12 +26,13 @@ function Dashboard() {
     async function handleCancelOrder(orderId) {
         try {
             await Axios.delete(`/order/${orderId}`);
+            if (!window.confirm("Haqiqatan ham buyurtma bekor qilishni xohlaysizmi!")) return;
             toast.success("Buyurtma bekor qilindi", { autoClose: 1000 })
             setTimeout(() => {
                 window.location.href = "/"
             }, 1500)
         } catch (error) {
-            alert("Error canceling order. Please try again later.");
+            toast.error("Buyurtmani bekor qilishda xatolik yuz berdi. Keyinroq qayta urinib ko‘ring yoki biz bilan bo'glaning", { autoClose: 2000 });
         }
     }
 
@@ -62,7 +63,7 @@ function Dashboard() {
                             <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center gap-2">
                                     <img
-                                        src={data.avatar}
+                                        src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2uLl8zBoK0_iM5pNwJAC8hQ2f68YKtlgc7Q&s"}
                                         alt="avatar"
                                         className="w-10 border-accent border-2 rounded-full"
                                     />

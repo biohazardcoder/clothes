@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   const { isAuth } = useSelector(state => state.user)
-  console.log(isAuth);
 
   const infoLinks = [
     { title: "Barcha mahsulotlar", url: "/shop" },

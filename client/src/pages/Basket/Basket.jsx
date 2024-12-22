@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Axios from "../../Axios";
 import { MdDelete } from "react-icons/md";
 import AutoFocus from "../../middlewares/AutoFocus";
+import { toast, ToastContainer } from "react-toastify";
 
 export const Shoplist = () => {
   const { data } = useSelector((state) => state.user);
@@ -21,11 +22,11 @@ export const Shoplist = () => {
     products: cart.map((item) => ({
       productId: item.id,
       quantity: item.quantity,
-      color: item.color, // Include color
-      size: item.size,   // Include size
+      color: item.color,
+      size: item.size,
       title: item.title,
     })),
-    status: "Pending",
+    status: "Kutilmoqda",
     totalPrice: calculateTotal(),
   });
 
@@ -36,7 +37,7 @@ export const Shoplist = () => {
 
   const handleRemoveItem = (index) => {
     const isConfirmed = window.confirm(
-      "Are you sure you want to remove this item?"
+      "Haqiqatan ham bu elementni olib tashlamoqchimisiz?"
     );
     if (isConfirmed) {
       const updatedCart = cart.filter((_, idx) => idx !== index);
@@ -64,34 +65,38 @@ export const Shoplist = () => {
       const response = await Axios.post("/order/new-order", updateOrderData());
       localStorage.removeItem("shopList");
       setCart([]);
-      alert("Order placed successfully!");
+      window.location.href = "/"
     } catch (err) {
-      console.error("Checkout failed:", err.response?.data || err.message);
+      toast.error(`Buyurtma amalga oshirilmadi:  ${err.response?.data.message}`);
+      console.log(err.response?.data.message);
+
     }
   };
 
+
   if (cart.length === 0) {
     return (
-      <div className="text-center text-primary min-h-screen bg-zinc-900 flex items-center justify-center">
-        Your basket is empty.
+      <div className="text-center text-primary py-20  flex items-center justify-center">
+        Sizning savatingiz bo'sh!
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-container text-primary py-16 px-4">
+    <div className="min-h-screen bg-container text-primary py-4 px-4">
+      <ToastContainer closeOnClick limit={2} position="top-left" theme={"dark"} icon pauseOnHover={false} />
       <AutoFocus />
       <div className="container mx-auto">
-        <h1 className="text-3xl font-bold mb-8 text-center">Your Basket</h1>
+        <h1 className="text-3xl font-bold mb-8 text-center">Sizning savatingiz</h1>
         <div className="w-full overflow-x-auto">
           <table className="w-full table-auto border-collapse">
             <thead>
               <tr className="text-left text-gray-400 border-b border-gray-700">
-                <th className="py-4">Product</th>
-                <th>Unit Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Action</th>
+                <th className="py-4">Mahsulot</th>
+                <th>Narxi</th>
+                <th>Miqdori</th>
+                <th>Qarzdorlik</th>
+                <th>Harakat</th>
               </tr>
             </thead>
             <tbody>
@@ -127,7 +132,7 @@ export const Shoplist = () => {
                   <td>
                     <button
                       onClick={() => handleRemoveItem(index)}
-                      className="text-red-500 hover:text-red-700"
+                      className=" bg-highlight p-2 rounded-md hover:bg-accent transition-colors duration-300 hover:text-secontary "
                     >
                       <MdDelete size={20} />
                     </button>
@@ -140,18 +145,18 @@ export const Shoplist = () => {
         <div className="mt-8 flex justify-between items-center">
           <button
             onClick={handleCheckout}
-            className="text-[#212121] bg-[#8D7966] hover:bg-transparent border border-[#8D7966] hover:text-[#8D7966] px-6 py-3 rounded-md transition-all"
+            className="text-primary bg-highlight  border border-primary hover:bg-primary hover:text-container transition-colors duration-300 px-4 py-2 "
           >
-            Checkout
+            Buyurtma berish
           </button>
           <Link
             to="/"
-            className="text-[#8D7966] bg-transparent border border-[#8D7966] px-6 py-3 rounded-md hover:bg-[#8D7966] hover:text-[#212121] transition-all"
+            className="text-primary  bg-[crimson] border border-primary px-4 py-2  hover:bg-primary hover:text-container transition-colors duration-300"
           >
-            Continue Shopping
+            Orqaga qaytish
           </Link>
-          <div className="text-lg font-bold text-gray-300">
-            Sub Total: {calculateTotal().toLocaleString()} so'm
+          <div className=" text-gray-300">
+            Jami: <strong>{calculateTotal().toLocaleString()}</strong> so'm
           </div>
         </div>
       </div>

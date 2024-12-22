@@ -10,8 +10,8 @@ import {
 
 const router = exress.Router();
 
-router.get("/", isExisted, IsAdmin, AllOrders);
-router.get("/:id", isExisted, IsAdmin, GetOneOrder);
+router.get("/", AllOrders);
+router.get("/:id", GetOneOrder);
 router.post("/new-order", isExisted, NewOrder);
 router.delete("/:id", isExisted, CancelOrder);
 

@@ -21,7 +21,7 @@ export const GetOneOrder = async (req, res) => {
     const order = Order.findById(id);
     return res.status(200).json({ data: order });
   } catch (error) {
-    sendErrorResponse(res, 500, "Server error!");
+    sendErrorResponse(res, 500, error);
   }
 };
 
@@ -95,11 +95,31 @@ export const NewOrder = async (req, res) => {
 export const CancelOrder = async (req, res) => {
   try {
     const { id } = req.params;
-    const canceledOrder = await Order.findByIdAndDelete(id);
+
+    const canceledOrder = await Order.findByIdAndUpdate(
+      id,
+      { status: "Bekor qilingan" },
+      { new: true }
+    );
+
+    if (!canceledOrder) {
+      return res.status(404).json({ message: "Buyurtma topilmadi" });
+    }
+
+    for (const product of canceledOrder.products) {
+      await Product.findByIdAndUpdate(
+        product.productId,
+        { $inc: { stock: product.quantity } }, // Mahsulot miqdorini oshirish
+        { new: true }
+      );
+    }
+
     return res
-      .status(201)
-      .json({ data: canceledOrder, message: "Order has been canceled" });
+      .status(200)
+      .json({ data: canceledOrder, message: "Buyurtma bekor qilindi va mahsulotlar zaxiraga qaytarildi" });
   } catch (error) {
-    sendErrorResponse(res, 500, "Server error!");
+    console.error(error);
+    sendErrorResponse(res, 500, "Server xatosi!");
   }
 };
+
