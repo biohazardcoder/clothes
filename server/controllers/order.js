@@ -8,10 +8,21 @@ const sendErrorResponse = (res, statusCode, message) => {
 
 export const AllOrders = async (_, res) => {
   try {
-    const orders = await Order.find();
+    const orders = await Order.find()
+      .populate({
+        path: "products.productId",
+        model: "Product",
+      })
+      .populate({
+        path: "customer",
+        model: "Client",
+      });
+
+
     return res.status(200).json({ data: orders });
   } catch (error) {
     sendErrorResponse(res, 500, "Server error!");
+
   }
 };
 
@@ -123,3 +134,50 @@ export const CancelOrder = async (req, res) => {
   }
 };
 
+export const DeliveryOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const canceledOrder = await Order.findByIdAndUpdate(
+      id,
+      { status: "Yo'lda" },
+      { new: true }
+    );
+
+    if (!canceledOrder) {
+      return res.status(404).json({ message: "Buyurtma topilmadi" });
+    }
+
+
+    return res
+      .status(200)
+      .json({ data: canceledOrder, message: "Buyurtma bekor qilindi va mahsulotlar zaxiraga qaytarildi" });
+  } catch (error) {
+    console.error(error);
+    sendErrorResponse(res, 500, "Server xatosi!");
+  }
+};
+
+export const SuccessOrder = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const canceledOrder = await Order.findByIdAndUpdate(
+      id,
+      { status: "Yetkazib berilgan" },
+      { new: true }
+    );
+
+    if (!canceledOrder) {
+      return res.status(404).json({ message: "Buyurtma topilmadi" });
+    }
+
+
+    return res
+      .status(200)
+      .json({ data: canceledOrder, message: "Buyurtma bekor qilindi va mahsulotlar zaxiraga qaytarildi" });
+  } catch (error) {
+    console.error(error);
+    sendErrorResponse(res, 500, "Server xatosi!");
+  }
+};

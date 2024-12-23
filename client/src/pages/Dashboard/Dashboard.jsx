@@ -101,32 +101,42 @@ function Dashboard() {
 
                     <div className=" col-span-2 p-6 ">
                         <h2 className="text-2xl text-primary font-semibold mb-4">Buyurtmalar:</h2>
-                        {data.orders && data.orders.length > 0 ? (
+                        {data?.orders && data?.orders?.length > 0 ? (
                             <ul className="space-y-4  ">
                                 {[...data.orders].reverse().map((order) => (
                                     <li
-                                        key={order._id}
+                                        key={order?._id}
                                         className="bg- p-4 bg-primary shadow-sm relative border "
                                     >
                                         <ul className="mt-2 grid grid-cols-1 md:grid-cols-2 space-y-2  text-sm">
-                                            {order.products.map(({ productId, quantity, title, color, size }) => (
+                                            {order?.products?.map(({ productId, quantity, title, color, size }) => (
                                                 <div
-                                                    key={productId._id}
+                                                    key={productId?._id}
                                                     className="flex items-center justify-between p-4  mb-2"
                                                 >
-                                                    <Link to={`/detail/${productId._id}`}>
-                                                        <img
-                                                            src={productId.photos[0]}
-                                                            alt={productId.title}
-                                                            className="w-16 h-16 object-top object-cover rounded-md border border-highlight"
-                                                        />
-                                                    </Link>
+                                                    {
+                                                        productId?.photos ? (
+                                                            <Link to={`/detail/${productId?._id}`}>
+                                                                <img
+                                                                    src={productId.photos[0]}
+                                                                    alt={productId.title}
+                                                                    className="w-16 h-16 object-top object-cover rounded-md border border-highlight"
+                                                                />
+                                                            </Link>
+                                                        ) : (
+                                                            <img
+                                                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW1QfJp-qyNLzfZB2Eie3smAwK2aA5if1KVoxO7QI7PgGti3dLRVvbZiNTQ4rRF72HOEo&usqp=CAU"
+                                                                alt={productId?.title}
+                                                                className="w-16 h-16 object-top object-cover rounded-md border border-highlight"
+                                                            />
+                                                        )
+                                                    }
 
                                                     <div className="flex-1 mx-2">
                                                         <h3 className="text-lg font-semibold text-[#000]">{title}</h3>
                                                         <div className="text-sm text-gray-400">
                                                             <span className="block">O'lchami: <span className="text-[#000]"><strong>{size}</strong></span></span>
-                                                            <span className="block">Narxi: <span className="text-[#000]">{productId.price.toLocaleString()} so'm</span></span>
+                                                            <span className="block">Narxi: <span className="text-[#000]">{productId?.price?.toLocaleString()} so'm</span></span>
                                                             <span className="flex items-center gap-2">Rangi: <span style={{ backgroundColor: color }} className="text-[#000] py-2 px-10 border shadow-md"></span></span>
                                                             <span className="block">Miqdori: <span className="text-[#000]">{quantity} dona</span></span>
                                                         </div>
@@ -137,16 +147,16 @@ function Dashboard() {
 
                                         </ul>
                                         <h3 className="text-sm text-secontary">
-                                            Buyurtma ID: <span className="font-semibold text-[#000]">{order._id}</span>
+                                            Buyurtma ID: <span className="font-semibold text-[#000]">{order?._id}</span>
                                         </h3>
-                                        <p className="text-sm text-secontary">Kuni: <span className="font-semibold text-[#000]">{order.orderDate.slice(0, 10)}</span></p>
+                                        <p className="text-sm text-secontary">Kuni: <span className="font-semibold text-[#000]">{order?.orderDate?.slice(0, 10)}</span></p>
                                         <p className="text-sm text-secontary">
-                                            Umumiy qarzdorlik: <span className="font-semibold text-[#000]">{order.totalPrice.toLocaleString()}  so'm</span>
+                                            Umumiy qarzdorlik: <span className="font-semibold text-[#000]">{order?.totalPrice?.toLocaleString()}  so'm</span>
                                         </p>
                                         {
-                                            (order.status === "Kutilmoqda" || order.status === "Yo'lda") ? (
+                                            (order?.status === "Kutilmoqda" || order?.status === "Yo'lda") ? (
                                                 <button
-                                                    onClick={() => handleCancelOrder(order._id)}
+                                                    onClick={() => handleCancelOrder(order?._id)}
                                                     className="w-full h-[36px] bg-highlight text-primary mt-2"
                                                 >
                                                     Bekor qilish
@@ -156,16 +166,16 @@ function Dashboard() {
 
 
                                         <div className="absolute top-1 left-1">
-                                            <p className={`text-sm text-primary py-2 px-3 ${order.status === "Yetkazib berilgan"
+                                            <p className={`text-sm text-primary py-2 px-3 ${order?.status === "Yetkazib berilgan"
                                                 ? "bg-[green]"
-                                                : order.status === "Kutilmoqda"
+                                                : order?.status === "Kutilmoqda"
                                                     ? "bg-container"
-                                                    : order.status === "Tahrirlangan"
+                                                    : order?.status === "Yo'lda"
                                                         ? "bg-[orange]"
-                                                        : order.status === "Bekor qilingan"
+                                                        : order?.status === "Bekor qilingan"
                                                             ? "bg-[crimson]"
                                                             : "bg-container"
-                                                }`}>Holati: <span className="font-semibold ">{order.status}</span></p>
+                                                }`}>Holati: <span className="font-semibold ">{order?.status}</span></p>
                                         </div>
                                     </li>
                                 ))}

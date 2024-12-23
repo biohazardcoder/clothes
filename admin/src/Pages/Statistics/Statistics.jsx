@@ -13,7 +13,7 @@ ChartJS.register(
 
 export function Statistics({ adminsCount, productCount, clientCount }) {
   const data = {
-    labels: ['Adminlar', 'Mahsulotlar', 'Xaridorlar'],
+    labels: ['Buyurtmalar', 'Xaridorlar', 'Mahsulotlar'],
     datasets: [
       {
         label: `Ko'rsatish`,

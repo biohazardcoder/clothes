@@ -18,7 +18,6 @@ import { Admins } from "./modules/Admins/Admins";
 import { CreateAdmin } from "./modules/Admins/CreateAdmin";
 import { AddProduct } from "./modules/Products/AddProduct";
 import { Products } from "./modules/Products/Products";
-import { Client } from "./modules/Client/Client";
 import { Orders } from "./modules/Orders/Orders";
 
 function App() {
@@ -75,10 +74,7 @@ function App() {
               path: "create-admin",
               element: <CreateAdmin />,
             },
-            {
-              path: "clients",
-              element: <Client />
-            },
+
             {
               path: "orders",
               element: <Orders />

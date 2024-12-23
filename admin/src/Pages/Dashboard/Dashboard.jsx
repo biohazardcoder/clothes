@@ -10,9 +10,9 @@ import { ToastContainer } from "react-toastify";
 
 export const Dashboard = () => {
   const { data } = useSelector((state) => state.user);
-  const [productCount, setproductCount] = useState(0);
-  const [clientCount, setClientCount] = useState(0);
-  const [adminsCount, setadminsCount] = useState(0);
+  const [productCount, setProduct] = useState(0);
+  const [clientCount, setClient] = useState(0);
+  const [adminsCount, setOrder] = useState(0);
 
   function Logout() {
     if (!window.confirm("Are you sure you want to logout")) return;
@@ -23,14 +23,15 @@ export const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const gamesResponse = await Axios.get("/partner");
-        setproductCount(gamesResponse.data.data.length);
+        const Client = await Axios.get("/client");
+        const Product = await Axios.get("/product");
+        const Order = await Axios.get("/order");
+        setClient(Client.data.length);
 
-        const AdminsResponse = await Axios.get("/admin");
-        setadminsCount(AdminsResponse.data.data.length);
+        setOrder(Order.data.data.length);
 
-        const clientsResponse = await Axios.get("/product");
-        setClientCount(clientsResponse.data.data.length);
+        setProduct(Product.data.total);
+
       } catch (error) {
         console.error("Failed to fetch statistics data", error);
       }

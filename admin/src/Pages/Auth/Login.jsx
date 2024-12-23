@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Eye, EyeSlash } from "@phosphor-icons/react";
+import { Eye, EyeSlash, FalloutShelter } from "@phosphor-icons/react";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 import Axios from "../../Axios";
@@ -42,11 +42,8 @@ export const Login = () => {
     <section className="h-screen bg-sidebarBg flex items-center justify-center">
       <div className="bg-mainBg shadow-lg rounded-lg p-8 w-full max-w-md">
         <div className="flex items-center justify-center gap-3 mb-6">
-          <span className="text-3xl text-accent hover:text-highlight transition-colors duration-300 ease-in-out">
-            <FaShopify />
-          </span>
           <h1 className="text-2xl font-semibold text-accent tracking-wide hover:text-highlight transition-colors duration-300 ease-in-out">
-            Kiyim do'koni
+            Tizimga kirish
           </h1>
         </div>
         <form className="flex flex-col gap-6" onSubmit={handleLogin}>
