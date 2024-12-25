@@ -18,7 +18,6 @@ export const AddProduct = () => {
     color: "",
     photos: [],
   });
-  console.log(productData);
 
   const [isEditing, setIsEditing] = useState(false);
   const [imagePreview, setImagePreview] = useState("");

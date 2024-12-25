@@ -17,7 +17,7 @@ export const ClientRegister = async (req, res) => {
       return sendErrorResponse(
         res,
         409,
-        "User with this phone number already exists. Please use another number."
+        "Bu telefon raqamiga ega foydalanuvchi allaqachon mavjud. Iltimos, boshqa raqamdan foydalaning."
       );
     }
 
@@ -37,7 +37,7 @@ export const ClientRegister = async (req, res) => {
     const token = generateToken({ _id: newClient._id, role: "client" });
 
     return res.status(201).json({
-      message: "New user successfully created!",
+      message: "Yangi foydalanuvchi muvaffaqiyatli yaratildi!",
       data: newClient,
       token,
     });
@@ -56,25 +56,25 @@ export const ClientLogin = async (req, res) => {
       return sendErrorResponse(
         res,
         401,
-        "User with this phone number does not exist."
+        "Bu telefon raqamiga ega foydalanuvchi mavjud emas."
       );
     }
 
     const isPasswordValid = await bcrypt.compare(password, client.password);
 
     if (!isPasswordValid) {
-      return sendErrorResponse(res, 401, "Incorrect phone number or password.");
+      return sendErrorResponse(res, 401, "Telefon raqami yoki parol noto'g'ri.");
     }
 
     const token = generateToken({ _id: client._id, role: "client" });
 
     return res.status(200).json({
-      message: "Success!",
+      message: "Muvaffaqiyatli ro'yxatdan o'tildi!",
       client,
       token,
     });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -83,7 +83,7 @@ export const GetAllClients = async (_, res) => {
     const clients = await Client.find();
     return res.json(clients);
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -100,7 +100,7 @@ export const UpdateClient = async (req, res) => {
       new: true,
     });
     if (!client) {
-      return sendErrorResponse(res, 409, "Client not found.");
+      return sendErrorResponse(res, 409, "Mijoz topilmadi.");
     }
     return res.status(200).json({ data: client });
   } catch (error) {
@@ -115,13 +115,13 @@ export const DeleteClient = async (req, res) => {
   try {
     const deletedClient = await Client.findByIdAndDelete(id);
     if (!deletedClient) {
-      return sendErrorResponse(res, 404, "Client not found.");
+      return sendErrorResponse(res, 404, "Mijoz topilmadi.");
     }
     return res
       .status(201)
-      .json({ message: "Client has been deleted successfully." });
+      .json({ message: "Mijoz muvaffaqiyatli o'chirildi." });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -137,12 +137,12 @@ export const GetMe = async (req, res) => {
       });
 
     if (!foundClient) {
-      return res.status(404).json({ message: "Client not found!" });
+      return res.status(404).json({ message: "Mijoz topilmadi." });
     }
 
     return res.status(200).json({ data: foundClient });
   } catch (error) {
-    console.error("Error fetching client details:", error.message);
+    console.error("Mijoz tafsilotlarini olishda xatolik yuz berdi:", error.message);
     res.status(500).json({ error: error.message });
   }
 };

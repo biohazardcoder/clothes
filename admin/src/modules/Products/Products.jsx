@@ -21,9 +21,11 @@ export const Products = () => {
     title: "",
     price: "",
     category: "",
-    stock: "",
     company: "",
+    stock: "",
     size: "",
+    sale: "",
+    color: "",
     photos: [],
   });
   const [totalPrice, setTotalPrice] = useState(0);
@@ -63,6 +65,9 @@ export const Products = () => {
       price: product.price || "",
       category: product.category || "",
       stock: product.stock || "",
+      sale: product.sale || "",
+      color: product.color || "",
+      size: product.size || "",
     });
     setIsModalOpen(true);
   };
@@ -95,6 +100,9 @@ export const Products = () => {
       if (formData.price) updatedData.price = formData.price;
       if (formData.category) updatedData.category = formData.category;
       if (formData.stock) updatedData.stock = formData.stock;
+      if (formData.sale) updatedData.sale = formData.sale;
+      if (formData.size) updatedData.size = formData.size;
+      if (formData.color) updatedData.color = formData.color;
 
       try {
         const response = await Axios.put(`product/${selectedProduct._id}`, updatedData);
@@ -248,6 +256,39 @@ export const Products = () => {
                   id="price"
                   name="price"
                   value={formData.price}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="sale" className="block text-sm font-semibold">Chegirma:</label>
+                <input
+                  type="number"
+                  id="sale"
+                  name="sale"
+                  value={formData.sale}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="color" className="block text-sm font-semibold">Rangi:</label>
+                <input
+                  type="text"
+                  id="color"
+                  name="color"
+                  value={formData.color}
+                  onChange={handleInputChange}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="size" className="block text-sm font-semibold">O'lchami:</label>
+                <input
+                  type="text"
+                  id="size"
+                  name="size"
+                  value={formData.size}
                   onChange={handleInputChange}
                   className="w-full p-2 border border-gray-300 rounded"
                 />

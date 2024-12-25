@@ -3,6 +3,7 @@ import { Eye, EyeSlash } from "@phosphor-icons/react";
 import Cookies from "js-cookie";
 import { useSelector } from "react-redux";
 import Axios from "../../../Axios";
+import { toast, ToastContainer } from "react-toastify"
 import { LoginImg } from "../../../images/images";
 import { Link } from "react-router-dom";
 
@@ -28,14 +29,18 @@ export const Login = () => {
       });
 
       Cookies.set("token", data.token, { secure: true, expires: 7 });
-      window.location.href = "/";
+      toast.success(data.message, { autoClose: 1000 });
+      setTimeout(() => {
+        window.location.href = "/"
+      }, 1500)
     } catch (err) {
-      console.log(err.response?.data.message || "Kirishda xatolik yuz berdi");
+      toast.error(err.response?.data.message || "Kirishda xatolik yuz berdi", { autoClose: 2000 });
     }
   };
 
   return (
     <section className="max-h-screen flex items-center justify-center  p-4">
+      <ToastContainer closeOnClick limit={2} position="top-left" theme={"dark"} icon pauseOnHover={false} />
       <div className="w-full max-w-xl ">
         <div className="bg-[white] shadow-xl overflow-hidden">
           <div

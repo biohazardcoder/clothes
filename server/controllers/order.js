@@ -21,7 +21,7 @@ export const AllOrders = async (_, res) => {
 
     return res.status(200).json({ data: orders });
   } catch (error) {
-    sendErrorResponse(res, 500, "Server error!");
+    sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
 
   }
 };
@@ -42,7 +42,7 @@ export const NewOrder = async (req, res) => {
     const { customer, products, status } = req.body;
 
     if (!customer || !products || !status) {
-      return res.status(400).json({ message: "All fields are required!" });
+      return res.status(400).json({ message: "Barcha maydonlarni kiritish shart!" });
     }
 
     let totalPrice = 0;
@@ -50,11 +50,11 @@ export const NewOrder = async (req, res) => {
       products.map(async ({ productId, quantity, color, size }) => {
         const product = await Product.findById(productId);
         if (!product) {
-          throw new Error(`Product not found with id: ${productId}`);
+          throw new Error(`Mahsulot id bilan topilmadi: ${productId}`);
         }
 
         if (product.stock < quantity) {
-          throw new Error(`Not enough stock for product: ${product.title}`);
+          throw new Error(`Mahsulot uchun zaxira yetarli emas: ${product.title}`);
         }
 
         product.stock -= quantity;
@@ -65,8 +65,8 @@ export const NewOrder = async (req, res) => {
         return {
           productId: product._id,
           quantity,
-          color: color || 'Default Color',
-          size: size || 'Default Size',
+          color: color || 'white',
+          size: size || 'M',
           title: product.title,
         };
 
@@ -84,18 +84,18 @@ export const NewOrder = async (req, res) => {
 
     const client = await Client.findById(customer);
     if (!client) {
-      return res.status(404).json({ message: "Client not found!" });
+      return res.status(404).json({ message: "Mijoz topilmadi!" });
     }
 
     client.orders.push(savedOrder._id);
     await client.save();
 
     res.status(201).json({
-      message: "Order successfully created",
+      message: "Buyurtma muvaffaqiyatli yaratildi",
       order: savedOrder,
     });
   } catch (error) {
-    console.error("Error creating order:", error.message);
+    console.error("Buyurtma yaratishda xatolik yuz berdi:", error.message);
     res.status(500).json({ message: error.message });
   }
 };
@@ -120,7 +120,7 @@ export const CancelOrder = async (req, res) => {
     for (const product of canceledOrder.products) {
       await Product.findByIdAndUpdate(
         product.productId,
-        { $inc: { stock: product.quantity } }, // Mahsulot miqdorini oshirish
+        { $inc: { stock: product.quantity } },
         { new: true }
       );
     }
@@ -130,7 +130,7 @@ export const CancelOrder = async (req, res) => {
       .json({ data: canceledOrder, message: "Buyurtma bekor qilindi va mahsulotlar zaxiraga qaytarildi" });
   } catch (error) {
     console.error(error);
-    sendErrorResponse(res, 500, "Server xatosi!");
+    sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -154,7 +154,7 @@ export const DeliveryOrder = async (req, res) => {
       .json({ data: canceledOrder, message: "Buyurtma bekor qilindi va mahsulotlar zaxiraga qaytarildi" });
   } catch (error) {
     console.error(error);
-    sendErrorResponse(res, 500, "Server xatosi!");
+    sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -178,6 +178,6 @@ export const SuccessOrder = async (req, res) => {
       .json({ data: canceledOrder, message: "Buyurtma bekor qilindi va mahsulotlar zaxiraga qaytarildi" });
   } catch (error) {
     console.error(error);
-    sendErrorResponse(res, 500, "Server xatosi!");
+    sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };

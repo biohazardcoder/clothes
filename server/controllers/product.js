@@ -17,7 +17,7 @@ export const CreateNewProduct = async (req, res) => {
 
     return res
       .status(201)
-      .json({ message: "Product created successfully", product: newProduct });
+      .json({ message: "Serverdagi ichki xatolik.", product: newProduct });
   } catch (error) {
     return sendErrorResponse(res, 500, error);
   }
@@ -43,7 +43,7 @@ export const GetAllProducts = async (req, res) => {
 
     return res.status(200).json({ data: products, total });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -52,7 +52,7 @@ export const DeleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(id);
     if (!product) {
-      return sendErrorResponse(res, 404, "Product not found.");
+      return sendErrorResponse(res, 404, "Mahsulot topilmadi.");
     }
 
     if (product.photos && product.photos.length > 0) {
@@ -63,24 +63,24 @@ export const DeleteProduct = async (req, res) => {
           if (fs.existsSync(filePath)) {
             fs.unlinkSync(filePath);
           } else {
-            console.warn(`File not found: ${filePath}`);
+            console.warn(`Mahsulot topilmadi.: ${filePath}`);
           }
         } catch (err) {
-          console.error(`Failed to delete image: ${filePath}`, err);
+          console.error(`Rasmni oʻchirib boʻlmadi: ${filePath}`, err);
         }
       });
     }
 
     const deletedProduct = await Product.findByIdAndDelete(id);
-    console.log("Product and associated images have been deleted successfully.")
+    console.log("Mahsulot va tegishli rasmlar muvaffaqiyatli oʻchirildi.")
 
     return res.status(201).json({
-      message: "Product and associated images have been deleted successfully.",
+      message: "Mahsulot va tegishli rasmlar muvaffaqiyatli oʻchirildi.",
       deletedProduct,
     });
   } catch (error) {
-    console.error("Error deleting product:", error);
-    return sendErrorResponse(res, 500, "Internal server error.");
+    console.error("Mahsulotni oʻchirishda xatolik yuz berdi:", error);
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -91,11 +91,11 @@ export const UpdateProduct = async (req, res) => {
       new: true,
     });
     if (!product) {
-      return sendErrorResponse(res, 409, "Product not found.");
+      return sendErrorResponse(res, 409, "Mahsulot topilmadi.");
     }
     return res.status(201).json({ data: product });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -104,11 +104,11 @@ export const GetOneProduct = async (req, res) => {
   try {
     const oneProduct = await Product.findById(productId);
     if (!oneProduct) {
-      return sendErrorResponse(res, 409, "Product not found.");
+      return sendErrorResponse(res, 409, "Mahsulot topilmadi.");
     }
     return res.status(201).json({ data: oneProduct });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 export const GetProductsByIds = async (req, res) => {
@@ -119,12 +119,12 @@ export const GetProductsByIds = async (req, res) => {
     });
 
     if (!products || products.length === 0) {
-      return sendErrorResponse(res, 404, "Products not found.");
+      return sendErrorResponse(res, 404, "Mahsulotlar topilmadi.");
     }
 
     return res.status(200).json({ data: products });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 

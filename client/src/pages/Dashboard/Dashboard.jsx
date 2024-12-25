@@ -44,7 +44,10 @@ function Dashboard() {
                 phoneNumber,
                 address
             });
-            toast.success("Tahrirlash muvaffaqiyatli amalga oshirildi!", { autoClose: 2000 })
+            toast.success("Tahrirlash muvaffaqiyatli amalga oshirildi!", { autoClose: 1000 })
+            setTimeout(() => {
+                window.location.href = "/"
+            }, 1500)
             setIsEditing(false);
         } catch (error) {
             toast.error("Tahrirlashda xatolik. Qayta urinib ko'ring!", { autoClose: 2000 });
@@ -181,7 +184,7 @@ function Dashboard() {
                                 ))}
                             </ul>
                         ) : (
-                            <p className="text-primary">No orders found.</p>
+                            <p className="text-primary">Hech qanday buyurtma topilmadi.</p>
                         )}
                     </div>
                 </div>
@@ -190,32 +193,32 @@ function Dashboard() {
             {isEditing && (
                 <div className="fixed inset-0 bg-[black] bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-[white] p-6 rounded-lg w-1/3 shadow-lg">
-                        <h2 className="text-2xl font-semibold  mb-4">Edit Account</h2>
+                        <h2 className="text-2xl font-semibold  mb-4">Hisobni tahrirlash</h2>
                         <div className="flex items-center gap-2 mb-3">
-                            <label className="">First Name:</label>
+                            <label className="">Ism:</label>
                             <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="border p-2 rounded-md w-full" />
                         </div>
                         <div className="flex items-center gap-2 mb-3">
-                            <label className="">Last Name:</label>
+                            <label className="">Familiya:</label>
                             <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} className="border p-2 rounded-md w-full" />
                         </div>
                         <div className="flex items-center gap-2 mb-3">
-                            <label className="">Phone Number:</label>
+                            <label className="">Telefon raqami:</label>
                             <input type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="border p-2 rounded-md w-full" />
                         </div>
                         <div className="flex items-center gap-2 mb-3">
-                            <label className="">Address:</label>
+                            <label className="">Manzil:</label>
                             <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className="border p-2 rounded-md w-full" />
                         </div>
                         <button
                             onClick={handleSaveChanges}
                             className="w-full bg-[indigo] text-[white] py-2 rounded-md hover:bg-indigo-500 transition duration-300">
-                            Save Changes
+                            Saqlash
                         </button>
                         <button
                             onClick={() => setIsEditing(false)}
                             className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-300 mt-2">
-                            Cancel
+                            Bekor qilish
                         </button>
                     </div>
                 </div>

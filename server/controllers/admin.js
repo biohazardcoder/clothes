@@ -12,7 +12,7 @@ export const GetAllAdmins = async (_, res) => {
     const admins = await Admin.find();
     return res.json({ data: admins });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -21,11 +21,11 @@ export const GetOneAdmin = async (req, res) => {
   try {
     const admin = await Admin.findById(adminId);
     if (!admin) {
-      return sendErrorResponse(res, 409, "Admin not found.");
+      return sendErrorResponse(res, 409, "Admin topilmadi.");
     }
     return res.status(201).json({ data: admin });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -37,7 +37,7 @@ export const CreateNewAdmin = async (req, res) => {
       return sendErrorResponse(
         res,
         409,
-        "Admin with this phone number already exists. Please use another number."
+        "Bu telefon raqamiga ega administrator allaqachon mavjud. Iltimos, boshqa raqamdan foydalaning."
       );
     }
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -55,12 +55,12 @@ export const CreateNewAdmin = async (req, res) => {
     const token = generateToken({ _id: newAdmin._id, role: "admin" });
 
     return res.status(201).json({
-      message: "New admin successfully created!",
+      message: "Yangi admin yaratildi!",
       data: newAdmin,
       token,
     });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -91,12 +91,12 @@ export const UpdateAdmin = async (req, res) => {
     });
 
     if (!admin) {
-      return res.status(409).json({ message: "Admin not found." });
+      return res.status(409).json({ message: "Admin topilmadi." });
     }
 
     return res.status(201).json({ data: admin });
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error." });
+    return res.status(500).json({ message: "Serverdagi ichki xatolik." });
   }
 };
 
@@ -110,25 +110,25 @@ export const AdminLogin = async (req, res) => {
       return sendErrorResponse(
         res,
         401,
-        "Admin with this phone number does not exist."
+        "Bu telefon raqamiga ega admin mavjud emas."
       );
     }
 
     const isPasswordValid = await bcrypt.compare(password, admin.password);
 
     if (!isPasswordValid) {
-      return sendErrorResponse(res, 401, "Incorrect phone number or password.");
+      return sendErrorResponse(res, 401, "Telefon raqami yoki parol noto'g'ri.");
     }
 
     const token = generateToken({ _id: admin._id, role: "admin" });
 
     return res.status(200).json({
-      message: "Success!",
+      message: "Muvaqqiyatli!",
       data: admin,
       token,
     });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -138,13 +138,13 @@ export const DeleteAdmin = async (req, res) => {
   try {
     const deletedAdmin = await Admin.findByIdAndDelete(id);
     if (!deletedAdmin) {
-      return sendErrorResponse(res, 404, "Admin not found.");
+      return sendErrorResponse(res, 404, "Admin topilmadi.");
     }
     return res
       .status(201)
-      .json({ message: "Admin has been deleted successfully." });
+      .json({ message: "Admin muvaffaqiyatli o'chirildi." });
   } catch (error) {
-    return sendErrorResponse(res, 500, "Internal server error.");
+    return sendErrorResponse(res, 500, "Serverdagi ichki xatolik.");
   }
 };
 
@@ -152,7 +152,7 @@ export const GetMe = async (req, res) => {
   try {
     const foundAdmin = await Admin.findById(req.userInfo.userId);
     if (!foundAdmin)
-      return res.status(404).json({ message: "Admin not found!" });
+      return res.status(404).json({ message: "Admin topilmadi." });
     return res.status(200).json({ data: foundAdmin });
   } catch (error) {
     res.status(500).json({ error: error.message });

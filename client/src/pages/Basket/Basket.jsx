@@ -65,11 +65,9 @@ export const Shoplist = () => {
       const response = await Axios.post("/order/new-order", updateOrderData());
       localStorage.removeItem("shopList");
       setCart([]);
-      window.location.href = "/"
+      window.location.reload()
     } catch (err) {
       toast.error(`Buyurtma amalga oshirilmadi:  ${err.response?.data.message}`);
-      console.log(err.response?.data.message);
-
     }
   };
 
