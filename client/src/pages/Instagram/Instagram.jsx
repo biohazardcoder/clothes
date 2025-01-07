@@ -25,7 +25,7 @@ const Instagram = () => {
                             className="w-full h-[50vh] object-cover"
                         />
                         <div className="absolute inset-0 flex items-center justify-center  bg-opacity-30">
-                            <a href="#" className="flex items-center">
+                            <a href="https://www.instagram.com/naundshop" className="flex items-center">
                                 <span className="text-primary border-primary border-2 rounded-full p-2 text-xl font-bold">
                                     <FaInstagram />
                                 </span>

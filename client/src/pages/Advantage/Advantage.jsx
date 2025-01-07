@@ -9,12 +9,12 @@ function Advantage() {
         {
             icon: <BsBox2 />,
             title: 'Bepul yetkazib berish',
-            description: "300 ming so'm dan yuqori buyurtmalar uchun bepul yetkazib berish",
+            description: "500 ming so'm dan yuqori buyurtmalar uchun bepul yetkazib berish",
         },
         {
             icon: <PiMoney />,
             title: 'Pul kafolati',
-            description: 'Almashtirish uchun 7 kun ichida',
+            description: 'Almashtirish 3 kun ichida',
         },
         {
             icon: <SlEarphones />,

@@ -71,8 +71,7 @@ const Deal = () => {
             <div className="p-8 bgre md:w-1/2">
                 <h1 className="text-4xl font-bold text-[#fff] mb-4">Eng Yaxshi Takliflari</h1>
                 <p className="text-secontary mb-6">
-                    O'qish oson matn mazmuniga chalg'ituvchi bo'lishi ma'lum. Lorem Ipsum ishlatilishining sababi
-                    shundaki, u odatdagidan ko'ra ko'proq harflar taqsimotiga ega.
+                    O'zingiz yoqtirgan hashamatli uslubni kashf eting.
                 </p>
                 <div className="flex gap-4 mb-6">
                     {[

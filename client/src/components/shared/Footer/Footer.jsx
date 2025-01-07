@@ -20,25 +20,25 @@ export const Footer = () => {
 
   const serviceLinks = [
     { title: "Biz haqimizda", url: "/about" },
-    { title: "Aloqa", url: "/contact" },
+    { title: "Aloqa", url: "tel:+998500908088" },
     { title: "Yetkazib berish ma'lumotlari", url: "#" },
   ];
   return (
     <footer className="bg-meteor text-[#fff] py-6 px-4 font-sans text-sm">
       <div className="container mx-auto flex flex-wrap justify-between gap-6">
         <div className="flex flex-col w-full sm:w-auto">
-          <h2 className="text-xl font-bold mb-2">Eldorado</h2>
+          <h2 className="text-xl font-bold mb-2">Naund</h2>
           <p className="flex items-center gap-2 mb-1">
             <FaPhoneAlt />
-            (704) 555-0127
+            +998 50 0908088
           </p>
           <p className="flex items-center gap-2 mb-1">
             <FaEnvelope />
-            eldoradouz@example.com
+            naundshop@gmail.com
           </p>
           <p className="flex items-center gap-2">
             <FaLocationArrow />
-            3891 Ranchview Dr. Richardson, Kaliforniya 62639
+            Namangan tumani, Xonobod 38
           </p>
         </div>
 
@@ -87,7 +87,7 @@ export const Footer = () => {
       </div>
 
       <div className="mt-6 border-t p-4 border-gray-700 pt-4 flex flex-col sm:flex-row sm:justify-between items-center text-xs text-center sm:text-left">
-        <p className="mb-2 sm:mb-0">©2025 Eldorado Barcha huquqlar himoyalangan</p>
+        <p className="mb-2 sm:mb-0">©2025 NAUND Barcha huquqlar himoyalangan</p>
         <div className="flex flex-wrap justify-center sm:justify-start space-x-3 mb-2 sm:mb-0">
           <span className="cursor-pointer ">UzCard</span>
           <span className="cursor-pointer ">Humo</span>
@@ -95,9 +95,9 @@ export const Footer = () => {
           <span className="cursor-pointer ">MasterCard</span>
         </div>
         <div className="flex flex-wrap justify-center sm:justify-start space-x-3">
-          <a href="#" className="cursor-pointer hover:underline">Telegram</a>
-          <a href="#" className="cursor-pointer hover:underline">Instagram</a>
-          <a href="#" className="cursor-pointer hover:underline">YouTube</a>
+          <a href="https://t.me/naundshop" className="cursor-pointer hover:underline">Telegram</a>
+          <a href="https://www.instagram.com/naundshop" className="cursor-pointer hover:underline">Instagram</a>
+          <a href="https://www.youtube.com/@naundshop" className="cursor-pointer hover:underline">YouTube</a>
         </div>
       </div>
     </footer>

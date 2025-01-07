@@ -16,7 +16,7 @@ export const Header = () => {
   const LiData = [
     { title: "Bosh saxifa", url: "/" },
     { title: "Mahsulotlar", url: "/shop" },
-    { title: "Aloqa", url: "/contact" },
+    { title: "Aloqa", url: "tel:+998500908088" },
     { title: "Biz haqimizda", url: "/about" },
   ];
 
@@ -32,7 +32,7 @@ export const Header = () => {
           className="text-2xl flex items-center gap-2 font-serif font-semibold text-[#fff]"
         >
           <img src={Logo} alt="" className="w-[25px] object-cover" />
-          ELDORADO
+          NAUND
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
