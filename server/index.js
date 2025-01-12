@@ -37,7 +37,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.post("/upload", upload.array("photos"), async (req, res) => {
   const uploadedImages = req.files.map(
-    (file) => `http://localhost:4000/uploads/${file.filename}`
+    (file) => `https://naundshop.onrender.com/uploads/${file.filename}`
   );
   res.status(200).json({
     message: "Изображения успешно загружены!",

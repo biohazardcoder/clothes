@@ -4,8 +4,7 @@ import Cookies from "js-cookie";
 const token = Cookies.get("token");
 
 const instance = axios.create({
-  // baseURL: "https://factory-qxbs.onrender.com/",
-  baseURL: "http://localhost:4000",
+  baseURL: "https://naundshop.onrender.com/",
   headers: {
     Authorization: token,
   },
