@@ -21,7 +21,6 @@ export const Footer = () => {
   const serviceLinks = [
     { title: "Biz haqimizda", url: "/about" },
     { title: "Aloqa", url: "tel:+998500908088" },
-    { title: "Yetkazib berish ma'lumotlari", url: "#" },
   ];
   return (
     <footer className="bg-meteor text-[#fff] py-6 px-4 font-sans text-sm">

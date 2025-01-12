@@ -96,7 +96,7 @@ function Detail() {
                     </div>
                     <div className="mt-6 flex items-center space-x-6">
                         <div className="text-2xl font-bold text-primary">
-                            Stock: {product.stock}
+                            Mavjud: {product.stock}
                         </div>
                         <div>
                             {product.stock > 0 ? (
