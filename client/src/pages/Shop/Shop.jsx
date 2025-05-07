@@ -134,11 +134,11 @@ export const Shop = () => {
                 {loading ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {Array(8).fill().map((_, index) => (
-                            <div key={index} className="bg-gray-200 animate-pulse rounded-lg overflow-hidden">
-                                <div className="h-[300px] bg-gray-300 rounded-t-lg"></div>
+                            <div key={index} className="bg-meteor animate-pulse rounded-lg overflow-hidden">
+                                <div className="h-[300px] bg-secontary rounded-t-lg"></div>
                                 <div className="p-4">
-                                    <div className="h-6 bg-gray-300 mb-2 rounded"></div>
-                                    <div className="h-4 bg-gray-300 w-1/2 rounded"></div>
+                                    <div className="h-6 bg-secontary mb-2 rounded"></div>
+                                    <div className="h-4 bg-secontary w-1/2 rounded"></div>
                                 </div>
                             </div>
                         ))}
