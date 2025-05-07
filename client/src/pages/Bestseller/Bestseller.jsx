@@ -83,13 +83,13 @@ function Bestseller() {
                                     </div>
                                 )}
                                 <button
-                                    className="absolute top-5 bg-white text-highlight right-5 flex items-center gap-2 p-2 rounded-md transition-colors duration-300"
+                                    className="absolute top-5 bg-[#fff] text-highlight right-5 flex items-center gap-2 p-2 rounded-md transition-colors duration-300"
                                     onClick={() => toggleWishlist(product)}
                                 >
                                     {isProductInWishlist(product._id) ? <FaHeart /> : <FaRegHeart />}
                                 </button>
                                 <Link to={`/detail/${product._id}`}>
-                                    <button className="text-[#9A836C] absolute top-16 right-5 flex items-center gap-2 p-2 rounded-md bg-white transition-colors duration-300">
+                                    <button className="text-[#9A836C] absolute top-16 right-5 flex items-center gap-2 p-2 rounded-md bg-[#fff] transition-colors duration-300">
                                         <FaEye />
                                     </button>
                                 </Link>
