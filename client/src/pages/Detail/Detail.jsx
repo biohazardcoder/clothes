@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import Axios from "../../Axios";
 import { Container } from '../../components/shared/Container/Container';
 import Button from '../../components/ui/Button';
-import { Footer } from '../../components/shared/Footer/Footer';
 import AutoFocus from '../../middlewares/AutoFocus';
 import { toast, ToastContainer } from 'react-toastify';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function Detail() {
     const { id } = useParams();
@@ -55,7 +55,10 @@ function Detail() {
     };
 
     if (loading) {
-        return <div className="text-center py-10 text-lg text-secontary">Kutilmoqda...</div>;
+        return <div className="flex items-center justify-center gap-2 py-10 text-lg text-[#fff]">
+            <AiOutlineLoading3Quarters className='animate-spin font-semibold'/>
+            Kutilmoqda...
+            </div>;
     }
 
     if (error) {
@@ -118,7 +121,7 @@ function Detail() {
                                 <button
                                     key={size}
                                     onClick={() => setSelectedSize(size)}
-                                    className={`px-3 py-1 border-2 rounded-lg text-primary font-semibold transition-all duration-300 ${selectedSize === size ? 'bg-highlight' : ''
+                                    className={`px-3 py-1 border-2 rounded-lg text-primary font-semibold transition-all duration-300 ${selectedSize === size ? 'bg-secontary' : ''
                                         }`}
                                 >
                                     {size}
@@ -133,7 +136,7 @@ function Detail() {
                                 <button
                                     key={index}
                                     onClick={() => setSelectedColor(color)}
-                                    className={`w-12 h-12 rounded-lg border-2 transition-all duration-300 ${selectedColor === color ? 'border-8 border-highlight' : 'border-secontary '
+                                    className={`w-12 h-12 rounded-lg border-2 transition-all duration-200 ${selectedColor === color ? 'border-[6px] border-secontary' : 'border-secontary '
                                         }`}
                                     style={{ backgroundColor: color }}
                                 />
@@ -146,7 +149,7 @@ function Detail() {
                             <div className="mt-8">
                                 <Button
                                     onClick={saveToLocalStorage}
-                                    className="w-full py-3 font-semibold text-[white] bg-highlight rounded-lg hover:bg-accent transition-all duration-300"
+                                    className="w-full py-3 font-semibold text-[white] bg-secontary border-none rounded-lg hover:bg-meteor transition-colors duration-700"
                                 >
                                     Savatga qo'shish
                                 </Button>
@@ -155,9 +158,6 @@ function Detail() {
                     }
                 </div>
             </Container >
-            <div className='mt-14'>
-                <Footer />
-            </div>
         </div >
     );
 }
