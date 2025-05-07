@@ -2,9 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import multer from "multer";
-import fs from 'fs';
-import path from 'path';
+import upload from './config/storage.js' 
 
 import AdminRoutes from "./routes/admin.js";
 import ProductRoutes from "./routes/product.js";
@@ -17,33 +15,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const uploadDir = path.join(process.cwd(), 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
 
-const storage = multer.diskStorage({
-  destination: (a, b, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (a, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({ storage });
-
-app.use("/uploads", express.static("uploads"));
 
 app.post("/upload", upload.array("photos"), async (req, res) => {
-  const uploadedImages = req.files.map(
-    (file) => `https://naundshop.onrender.com/uploads/${file.filename}`
-  );
-  res.status(200).json({
-    message: "Изображения успешно загружены!",
-    photos: uploadedImages,
-  });
-  console.log("Successfully send a image")
+  try {
+    const uploadedImages = req.files.map((file) => file.path);
+    res.status(200).json({
+      message: "Изображения успешно загружены!",
+      photos: uploadedImages,
+    });
+    console.log("Successfully uploaded images to Cloudinary");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Yuklashda xatolik yuz berdi" });
+  }
 });
 
 
