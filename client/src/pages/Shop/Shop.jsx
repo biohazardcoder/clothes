@@ -22,19 +22,21 @@ export const Shop = () => {
     });
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        Axios.get("product")
+        setLoading(true);
+        Axios.get("/product")
             .then((response) => {
                 dispatch(getProductSuccess(response.data.data));
-                setIsLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching products:", error);
-                setIsLoading(false);
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }, [dispatch]);
-
     const categories = [
         {
             title: "Barcha",
@@ -62,6 +64,17 @@ export const Shop = () => {
         setWishlist(updatedWishlist);
         localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
     };
+
+
+    
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center gap-2 py-10 text-lg text-[#fff]">
+                <AiOutlineLoading3Quarters className="animate-spin font-semibold" />
+                Kutilmoqda...
+            </div>
+        );
+    }
 
     const isProductInWishlist = (productId) =>
         wishlist.some((product) => product._id === productId);
@@ -107,21 +120,21 @@ export const Shop = () => {
                                 {categories.map((category) => (
                                     <li
                                         key={category.title}
-                                        className={`cursor-pointer p-2 rounded-md flex gap-2 items-center ${selectedCategory === category.title ? "bg-highlight text-primary" : ""}`}
+                                        className={`cursor-pointer p-2 rounded-md flex gap-2 items-center ${selectedCategory === category.title ? "bg-meteor text-primary" : ""}`}
                                         onClick={() => {
                                             setSelectedCategory(category.title);
                                             setIsModalOpen(false);
                                         }}
                                     >
                                         {category.icon && <span>{category.icon}</span>}
-                                        {category.title} Kiyimi
+                                        {category.title}
                                     </li>
                                 ))}
                             </ul>
 
                             <button
                                 onClick={() => setIsModalOpen(false)}
-                                className="mt-4 w-full bg-accent text-[#fff] py-2 rounded-lg"
+                                className="mt-4 w-full bg-secontary text-[#fff] py-2 rounded-lg"
                             >
                                 Yopish
                             </button>
