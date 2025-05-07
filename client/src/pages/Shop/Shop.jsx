@@ -13,7 +13,6 @@ import { FiLayers } from "react-icons/fi";
 
 export const Shop = () => {
     const { data } = useSelector((state) => state.products);
-    const [isLoading, setIsLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("Barcha");
     const [wishlist, setWishlist] = useState(() => {
@@ -66,15 +65,6 @@ export const Shop = () => {
     };
 
 
-    
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center gap-2 py-10 text-lg text-[#fff]">
-                <AiOutlineLoading3Quarters className="animate-spin font-semibold" />
-                Kutilmoqda...
-            </div>
-        );
-    }
 
     const isProductInWishlist = (productId) =>
         wishlist.some((product) => product._id === productId);
@@ -101,9 +91,9 @@ export const Shop = () => {
                         onChange={(e) => setSearchQuery(e.target.value)}
                         className={`
                             p-2 w-full md:w-1/4 mb-4 md:mb-0 rounded-xl bg-container border border-secondary focus:ring-2 focus:ring-highlight focus:outline-none transition-shadow shadow-sm text-primary hover:shadow-lg
-                            ${isLoading ? "opacity-50 cursor-not-allowed" : ""}
+                            ${loading ? "opacity-50 cursor-not-allowed" : ""}
                         `}
-                        disabled={isLoading}
+                        disabled={loading}
                     />
                     <button
                         onClick={() => setIsModalOpen(true)}
@@ -141,7 +131,7 @@ export const Shop = () => {
                         </div>
                     </div>
                 )}
-                {isLoading ? (
+                {loading ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {Array(8).fill().map((_, index) => (
                             <div key={index} className="bg-gray-200 animate-pulse rounded-lg overflow-hidden">
