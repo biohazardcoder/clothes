@@ -1,1 +1,1 @@
-# Folder for upload images
+Folder for upload images
