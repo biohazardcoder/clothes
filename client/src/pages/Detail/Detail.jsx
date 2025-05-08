@@ -116,7 +116,7 @@ function Detail() {
 
                     <div className="mt-6">
                         <h3 className="text-xl font-semibold text-primary">O'lchamni tanlang*</h3>
-                        <div className="flex gap-6 mt-2">
+                        <div className="flex gap-6 mt-2 flex-wrap">
                             {product.size.split(", ").map((size) => (
                                 <button
                                     key={size}
@@ -131,7 +131,7 @@ function Detail() {
                     </div>
                     <div className="mt-6">
                         <h3 className="text-xl font-semibold text-primary">Rangni tanlang*</h3>
-                        <div className="flex gap-6 mt-2">
+                        <div className="flex gap-6 mt-2 flex-wrap">
                             {product.color.split(", ").map((color, index) => (
                                 <button
                                     key={index}
