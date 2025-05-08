@@ -4,8 +4,13 @@ import Axios from "../../Axios";
 import { useNavigate } from "react-router-dom";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
+import useSWR from "swr";
 
+const fetcher = url => Axios.get(url).then(res => res.data.data);
 export const AddProduct = () => {
+  const { mutate } = useSWR("product", fetcher);
+  const [loading, setLoading] = useState(false);
+  const [imageUploading, setImageUploading] = useState(false);
   const navigate = useNavigate();
   const [productData, setProductData] = useState({
     title: "",
@@ -19,7 +24,6 @@ export const AddProduct = () => {
     photos: [],
   });
 
-  const [isEditing, setIsEditing] = useState(false);
   const [imagePreview, setImagePreview] = useState("");
 
   const handleInputChange = (e) => {
@@ -28,6 +32,7 @@ export const AddProduct = () => {
   };
 
   const handleFileChange = async (e) => {
+    setImageUploading(true);
     try {
       const formImageData = new FormData();
       const files = e.target.files;
@@ -41,10 +46,13 @@ export const AddProduct = () => {
       }));
       setImagePreview(data.photos[0]);
     } catch (err) {
+      toast.error("Rasm yuklashda xatolik yuz berdi.");
       console.log(err);
+    } finally {
+      setImageUploading(false);
     }
   };
-
+  
   const handleRemoveImage = () => {
     setImagePreview("");
     setProductData((prevData) => ({ ...prevData, photos: [] }));
@@ -52,8 +60,9 @@ export const AddProduct = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const response = await Axios.post("/product/create", {
+      await Axios.post("/product/create", {
         title: productData.title,
         price: productData.price,
         sale: productData.sale,
@@ -65,15 +74,16 @@ export const AddProduct = () => {
         photos: productData.photos,
       });
       toast.success("Yangi mahsulot qo'shildi!");
-      setTimeout(() => {
-        window.location.href = "/products";
-      }, 1000);
+      await mutate();
+      navigate("/products");
     } catch (error) {
-      console.log(error.response.data.message);
       toast.error("Mahsulotni qo'shishda xato!");
+      console.log(error?.response?.data?.message || error.message);
+    } finally {
+      setLoading(false);
     }
   };
-
+  
   return (
     <Section className="bg-wishlistBg flex  h-screen p-4 pb-10">
       <ToastContainer />
@@ -82,7 +92,7 @@ export const AddProduct = () => {
         className="md:w-3/4 w-full m-auto  bg-white p-4 rounded-lg shadow-md flex flex-col gap-4"
       >
         <h1 className="text-center text-3xl font-semibold text-gray-800 mb-4">
-          {isEditing ? "Mahsulotni Tahrirlash" : "Yangi Mahsulot Qo'shish"}
+          Yangi mahsulot qo'shish
         </h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -111,7 +121,7 @@ export const AddProduct = () => {
               className={`border border-gray-300 rounded-md p-2 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-highlight focus:border-transparent transition ease-in-out duration-200`}
               value={productData.sale}
               onChange={handleInputChange}
-              placeholder="Sale"
+              placeholder="Avvalgi narxi"
               required
             />
             <input
@@ -123,7 +133,9 @@ export const AddProduct = () => {
               placeholder="Kategoriya"
               required
             />
-            <input
+          </div>
+          <div>
+          <input
               type="text"
               name="color"
               className={`border border-gray-300 rounded-md p-2 w-full mt-2 focus:outline-none focus:ring-2 focus:ring-highlight focus:border-transparent transition ease-in-out duration-200`}
@@ -131,8 +143,6 @@ export const AddProduct = () => {
               onChange={handleInputChange}
               placeholder="Rang"
             />
-          </div>
-          <div>
             <input
               type="text"
               name="stock"
@@ -199,15 +209,20 @@ export const AddProduct = () => {
 
         <button
           type="submit"
-          className="bg-slate-800 w-full text-xl py-2 rounded-md text-white mt-4 hover:bg-slate-600 transition duration-200"
+          disabled={loading || imageUploading}
+          className={`w-full text-xl py-2 rounded-md text-white mt-4 transition duration-200 ${
+            loading || imageUploading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-slate-800 hover:bg-slate-600"
+          }`}
         >
-          {isEditing ? "Yangilash" : "Yuborish"}
+          {loading ? "Yuborilmoqda..." : imageUploading ? "Rasm yuklanmoqda..." : "Yuborish"}
         </button>
 
         <button
           type="button"
           onClick={() => navigate("/products")}
-          className="bg-red-500 w-full text-xl py-2 rounded-md text-white mt-2 hover:bg-red-400 transition duration-200"
+          className="bg-red-500 w-full text-xl py-2 rounded-md text-white hover:bg-red-400 transition duration-200"
         >
           Orqaga qaytish
         </button>

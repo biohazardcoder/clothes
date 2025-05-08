@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Axios from "../../Axios";
-import {
-  getProductError,
-  getProductPending,
-  getProductSuccess,
-} from "../../Toolkit/ProductsSlicer";
 import { Pencil, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BiLoaderAlt } from "react-icons/bi";
+import useSWR from "swr";
 
+const fetcher = url => Axios.get(url).then(res => res.data.data);
 export const Products = () => {
-  const dispatch = useDispatch();
-  const { data, isPending, isError } = useSelector((state) => state.products);
+  const { data: products = [], error, isLoading, mutate } = useSWR("product", fetcher);
+
+  const data = products;
+  const isPending = isLoading;
+  const isError = error;
+  
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
@@ -31,28 +32,14 @@ export const Products = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalStock, setTotalStock] = useState(0);
 
-  useEffect(() => {
-    const getAllProducts = async () => {
-      dispatch(getProductPending());
-      try {
-        const response = await Axios.get("product");
-        const products = response.data?.data || [];
-        dispatch(getProductSuccess(products));
-
-        const total = products.reduce((acc, product) => acc + product.total, 0);
-        const stock = products.reduce((acc, product) => acc + product.stock, 0);
-
-        setTotalPrice(total);
-        setTotalStock(stock);
-      } catch (error) {
-        dispatch(
-          getProductError(error.response?.data?.message || "Noma'lum xato")
-        );
-      }
-    };
-    getAllProducts();
-  }, [dispatch]);
-
+useEffect(() => {
+  if (products.length > 0) {
+    const total = products.reduce((acc, product) => acc + product.total, 0);
+    const stock = products.reduce((acc, product) => acc + product.stock, 0);
+    setTotalPrice(total);
+    setTotalStock(stock);
+  }
+}, [products]);
   const handleDelete = (product) => {
     setSelectedProduct(product);
     setIsDeleteConfirmOpen(true);
@@ -108,14 +95,10 @@ export const Products = () => {
         const response = await Axios.put(`product/${selectedProduct._id}`, updatedData);
         console.log(response.data);
 
-        dispatch(getProductSuccess(data.map((product) =>
-          product._id === selectedProduct._id ? response.data : product
-        )));
+        await mutate();
 
         toast.success("Mahsulot muvaffaqiyatli yangilandi!");
-        setTimeout(() => {
-          window.location.href = "/products";
-        }, 1000);
+        setIsModalOpen(false)
       } catch (error) {
         console.error("API Error:", error.response?.data || error.message);
         toast.error("Mahsulotni yangilashda xato");
@@ -130,21 +113,9 @@ export const Products = () => {
     if (!selectedProduct) return;
     try {
       await Axios.delete(`product/${selectedProduct._id}`);
-      dispatch(
-        getProductSuccess(
-          data.filter((product) => product._id !== selectedProduct._id)
-        )
-      );
       toast.success("Mahsulot muvaffaqiyatli o'chirildi");
-
-      const deletedProduct = data.find((product) => product._id === selectedProduct._id);
-      setTotalPrice(totalPrice - deletedProduct.price);
-      setTotalStock(totalStock - deletedProduct.stock);
-
+      await mutate(); 
       setIsDeleteConfirmOpen(false);
-      setTimeout(() => {
-        window.location.href = "/products";
-      }, 1000);
     } catch (error) {
       toast.error(
         error.response?.data?.message || "Mahsulotni o'chirishda xato"
@@ -182,7 +153,9 @@ export const Products = () => {
         </Link>
       </div>
       {isPending ? (
-        <div className="text-center text-gray-500">Yuklanmoqda...</div>
+        <div className="items-center w-full h-1/2 justify-center flex">
+                <BiLoaderAlt className="animate-spin text-2xl text-white"/>
+               </div>
       ) : isError ? (
         <p className="text-red-500 text-center text-xl">Xato: {isError}</p>
       ) : data.length > 0 ? (
@@ -206,18 +179,20 @@ export const Products = () => {
                 <p className="text-gray-600"><span className="font-semibold text-black">Narxi: </span>
                   {new Intl.NumberFormat('us').format(product.price)}
                   {" "}so'm</p>
-                <p className="text-gray-600"><span className="font-semibold text-black">Stock:</span> {product.stock} ta</p>
+                <p className="text-gray-600"><span className="font-semibold text-black">Omborda mavjud:</span> {product.stock} ta</p>
                 <p className="text-gray-600"><span className="font-semibold text-black">Umumiy narx: </span>
                   {new Intl.NumberFormat('us').format(product.total)}
                   {" "}so'm</p>
                 <p className="text-gray-600"><span className="font-semibold text-black">Kategoriya:</span> {product.category}</p>
-                <div className="flex justify-between mt-2">
-                  <button onClick={() => handleProductClick(product)} title="Tahrirlash">
-                    <Pencil className="text-blue-600 w-5 h-5" />
+                <div className="flex justify-end mt-2 gap-2">
+                  <button onClick={() => handleProductClick(product)} 
+                   className="bg-blue-600 text-white rounded-md p-2 hover:bg-blue-700"
+                  title="Tahrirlash">
+                    <Pencil className="text-white w-5 h-5" />
                   </button>
                   <button
                     onClick={() => handleDelete(product)}
-                    className="bg-red-600 text-white rounded-md p-1 hover:bg-red-700"
+                    className="bg-red-600 text-white rounded-md p-2 hover:bg-red-700"
                     title="O'chirish"
                   >
                     <Trash2 className="text-white w-5 h-5" />
@@ -261,7 +236,7 @@ export const Products = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="sale" className="block text-sm font-semibold">Chegirma:</label>
+                <label htmlFor="sale" className="block text-sm font-semibold">Avvalgi narxi:</label>
                 <input
                   type="number"
                   id="sale"
@@ -305,7 +280,7 @@ export const Products = () => {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="stock" className="block text-sm font-semibold">Stock miqdori:</label>
+                <label htmlFor="stock" className="block text-sm font-semibold">Omborda mavjud:</label>
                 <input
                   type="number"
                   id="stock"

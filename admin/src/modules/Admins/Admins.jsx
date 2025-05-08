@@ -9,6 +9,7 @@ import {
 } from "../../Toolkit/AdminsSlicer";
 import { Trash2 } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
+import { BiLoaderAlt } from "react-icons/bi";
 
 export const Admins = () => {
   const dispatch = useDispatch();
@@ -71,7 +72,9 @@ export const Admins = () => {
       </div>
 
       {isPending ? (
-        <p>Yuklanmoqda...</p>
+       <div className="items-center w-full h-1/2 justify-center flex">
+        <BiLoaderAlt className="animate-spin text-2xl text-white"/>
+       </div>
       ) : isError ? (
         <p className="text-red-500 text-center text-xl">Xato: {isError}</p>
       ) : data.length > 0 ? (
