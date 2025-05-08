@@ -69,11 +69,11 @@ const Deal = () => {
                 />
             </div>
             <div className="p-8 bgre md:w-1/2">
-                <h1 className="text-4xl font-bold text-[#fff] mb-4">Eng Yaxshi Takliflari</h1>
-                <p className="text-secontary mb-6">
+                <h1 className="text-3xl font-bold text-[#fff] mb-4">Eng Yaxshi Takliflari</h1>
+                <p className="text-secontary text-sm mb-6">
                     O'zingiz yoqtirgan hashamatli uslubni kashf eting.
                 </p>
-                <div className="flex gap-4 mb-6">
+                <div className="flex gap-2 mb-6">
                     {[
                         { label: "Kunlar", value: timeLeft.days },
                         { label: "Soatlar", value: timeLeft.hours },
@@ -82,10 +82,10 @@ const Deal = () => {
                     ].map((item, index) => (
                         <div
                             key={index}
-                            className="flex flex-col items-center justify-center p-4 bg-[white] border rounded-md shadow-sm text-gray-800"
+                            className="flex flex-col items-center justify-center p-3 bg-[white] border rounded-md shadow-sm text-gray-800"
                         >
-                            <span className="text-3xl font-bold">{item.value}</span>
-                            <span className="text-sm">{item.label}</span>
+                            <span className="text-2xl font-bold">{item.value}</span>
+                            <span className="text-xs">{item.label}</span>
                         </div>
                     ))}
                 </div>
